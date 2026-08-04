@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --color-bg: #E2E8F0;
+  --color-surface: var(--color-white);
+  --color-surface-sunken: var(--color-slate-50);
+  --color-border: var(--color-slate-200);
+  --color-text: var(--color-slate-800);
+  --color-text-muted: var(--color-slate-500);
+  --color-text-subtle: var(--color-slate-400);
+  --color-focus: var(--color-blue-700);
+  --color-brand-header: var(--color-blue-700);
+  --color-action: var(--color-blue-700);
+  --color-action-active: var(--color-blue-800);
+  --color-accent-soft: var(--color-yellow-100);
+  --color-checkin: var(--color-green-700);
+  --color-checkout: var(--color-red-700);
+  --color-success: var(--color-green-700);
+  --color-success-soft: var(--color-green-100);
+  --color-danger: var(--color-red-700);
+  --color-danger-soft: var(--color-red-100);
+  --color-border-strong: var(--color-slate-300);
+  --text-h1: 1.25rem;
+  --text-h1--line-height: 1.5;
+  --text-h2: 0.8125rem;
+  --text-h2--line-height: 1.5;
+  --text-lg: 1.0625rem;
+  --text-lg--line-height: 1.4;
+  --text-label: 0.875rem;
+  --text-label--line-height: 1.35;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.5;
+  --radius-card: 0.875rem;
+  --radius-btn: 0.75rem;
+  --shadow-card: 0 1px 2px rgb(29 41 61 / 0.06);
+  --spacing-tap: 2.75rem;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-thai), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+}
+
+.interactive-card,
+.surface-card,
+.primary-action,
+.icon-button,
+.drawer-item {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 220ms ease,
+    color 180ms ease,
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .interactive-card:hover {
+    border-color: color-mix(in srgb, var(--color-action) 35%, var(--color-border));
+    transform: translateY(-1px);
+  }
+
+  .interactive-card:hover svg {
+    transform: scale(1.03);
+  }
+
+  .primary-action:hover {
+    box-shadow: 0 6px 14px color-mix(in srgb, var(--color-action) 24%, transparent);
+    transform: translateY(-1px);
+  }
+
+  .icon-button:hover {
+    background: rgb(255 255 255 / 0.14);
+    transform: scale(1.02);
+  }
+
+  .drawer-item:hover {
+    background: var(--color-surface-sunken);
+    color: var(--color-action);
+    box-shadow: inset 3px 0 var(--color-action);
+  }
+}
+
+.interactive-card:active,
+.primary-action:active,
+.icon-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.interactive-card svg,
+.drawer-item svg {
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes drawer-enter {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawer-exit {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes backdrop-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.4;
+  }
+}
+
+@keyframes backdrop-exit {
+  from {
+    opacity: 0.4;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.drawer-opening {
+  animation: drawer-enter 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.drawer-closing {
+  animation: drawer-exit 360ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.drawer-backdrop {
+  animation: backdrop-enter 320ms ease-out both;
+}
+
+.drawer-backdrop-closing {
+  animation: backdrop-exit 360ms ease-in both;
+}
+
+time,
+[data-numeric] {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
