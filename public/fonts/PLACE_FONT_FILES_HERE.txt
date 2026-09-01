@@ -1,0 +1,9 @@
+Add the following LINE Seed Sans TH webfont files to this folder (referenced by app/layout.tsx):
+
+- LINESeedSansTH_W_Th.woff2   (weight 100)
+- LINESeedSansTH_W_Rg.woff2   (weight 400)
+- LINESeedSansTH_W_Bd.woff2   (weight 700)
+- LINESeedSansTH_W_XBd.woff2  (weight 800)
+
+Until these are added, `next build` / `next dev` will fail because next/font/local cannot find the referenced files.
+Delete this file once the real fonts are in place.

@@ -1,21 +1,16 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useState } from "react"
-import {
-  ChevronRight,
-  LogOut,
-  Menu,
-  UsersRound,
-  X,
-  type LucideIcon,
-} from "lucide-react"
+import { ChevronLeft, LogOut, Menu, X } from "lucide-react"
 
 type HomeHeaderProps = {
   showDrawer?: boolean
+  backHref?: string
 }
 
-export function HomeHeader({ showDrawer = true }: HomeHeaderProps) {
+export function HomeHeader({ showDrawer = true, backHref }: HomeHeaderProps) {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [drawerClosing, setDrawerClosing] = useState(false)
 
@@ -25,6 +20,15 @@ export function HomeHeader({ showDrawer = true }: HomeHeaderProps) {
 
   return (
     <header className="relative flex h-14 items-center justify-end bg-[#1C4ED8] px-2 text-[var(--color-surface)]">
+      {backHref ? (
+        <Link
+          aria-label="ย้อนกลับ"
+          className="icon-button absolute left-2 grid size-11 place-items-center rounded-[9.6px] outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
+          href={backHref}
+        >
+          <ChevronLeft aria-hidden="true" className="size-6" strokeWidth={2.5} />
+        </Link>
+      ) : null}
       {showDrawer ? (
         <button
           aria-controls="main-drawer"
@@ -88,7 +92,6 @@ export function HomeHeader({ showDrawer = true }: HomeHeaderProps) {
                 <X aria-hidden="true" className="size-6" />
               </button>
             </div>
-            <StaticDrawerItem icon={UsersRound} label="รายชื่อพนักงาน" />
             <div className="mt-auto border-t border-[var(--color-border)] pt-4">
               <button
                 className="flex min-h-[var(--spacing-tap)] w-full items-center gap-2 rounded-[var(--radius-btn)] px-4 text-left text-[length:var(--text-label)] font-bold text-[var(--color-checkout)]"
@@ -106,29 +109,5 @@ export function HomeHeader({ showDrawer = true }: HomeHeaderProps) {
         </div>
       ) : null}
     </header>
-  )
-}
-
-function StaticDrawerItem({
-  icon: Icon,
-  label,
-}: {
-  icon: LucideIcon
-  label: string
-}) {
-  return (
-    <div className="drawer-item flex min-h-[3.25rem] w-full items-center justify-between border-b border-[var(--color-border)] px-3 text-[length:var(--text-label)] font-bold">
-      <span className="flex items-center gap-2">
-        <Icon
-          aria-hidden="true"
-          className="size-5 text-[var(--color-action)]"
-        />
-        {label}
-      </span>
-      <ChevronRight
-        aria-hidden="true"
-        className="size-5 text-[var(--color-text-muted)]"
-      />
-    </div>
   )
 }
