@@ -68,7 +68,7 @@ function Row({
 }
 
 export function ReceiptDetail({ receipt }: { receipt: Receipt }) {
-  const { subtotal, discount, tax, netTotal } = getReceiptAmounts(receipt)
+  const { netTotal } = getReceiptAmounts(receipt)
 
   return (
     <div className="space-y-4 px-4 pt-5 pb-8">
@@ -146,25 +146,9 @@ export function ReceiptDetail({ receipt }: { receipt: Receipt }) {
       </section>
 
       <section className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)]">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between text-[length:var(--text-label)] leading-5 text-[var(--color-text-muted)]">
-            <span>ยอดรวมก่อนภาษี</span>
-            <span>{formatCurrency(subtotal)} บาท</span>
-          </div>
-          {discount > 0 ? (
-            <div className="flex items-center justify-between text-[length:var(--text-label)] leading-5 text-[var(--color-text-muted)]">
-              <span>ส่วนลด</span>
-              <span>-{formatCurrency(discount)} บาท</span>
-            </div>
-          ) : null}
-          <div className="flex items-center justify-between text-[length:var(--text-label)] leading-5 text-[var(--color-text-muted)]">
-            <span>ภาษีมูลค่าเพิ่ม 7%</span>
-            <span>{formatCurrency(tax)} บาท</span>
-          </div>
-          <div className="flex items-center justify-between border-t border-[var(--color-border)] pt-2.5 text-[length:var(--text-lg)] leading-6 font-bold text-[var(--color-text)]">
-            <span>ยอดสุทธิ</span>
-            <span>{formatCurrency(netTotal)} บาท</span>
-          </div>
+        <div className="flex items-center justify-between text-[length:var(--text-lg)] leading-6 font-bold text-[var(--color-text)]">
+          <span>ยอดสุทธิ</span>
+          <span>{formatCurrency(netTotal)} บาท</span>
         </div>
       </section>
 

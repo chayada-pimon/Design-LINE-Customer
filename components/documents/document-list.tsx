@@ -10,7 +10,7 @@ import {
   type CompanyDocument,
   type DocumentUrgencyGroup,
 } from "@/components/documents/document-data"
-import { ALL_DATES } from "@/components/documents/document-date-filter"
+import { ALL_DATES, parseDateRange } from "@/components/documents/document-date-filter"
 import { DocumentResponseBadge } from "@/components/documents/document-response-badge"
 import { DocumentTimeBadge } from "@/components/documents/document-time-badge"
 import { DocumentTypeBadge } from "@/components/documents/document-type-badge"
@@ -90,7 +90,9 @@ export function DocumentList({ dateKey }: { dateKey: string }) {
 
   const filtered = useMemo(() => {
     if (dateKey === ALL_DATES) return documents
-    return documents.filter((document) => document.publishedDate === dateKey)
+    const { start, end } = parseDateRange(dateKey)
+    if (!start) return documents
+    return documents.filter((document) => document.publishedDate >= start && document.publishedDate <= (end ?? start))
   }, [dateKey])
 
   const grouped = useMemo(() => {

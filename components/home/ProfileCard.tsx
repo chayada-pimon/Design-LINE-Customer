@@ -92,7 +92,7 @@ export function ProfileCard() {
             รหัส {truncateId(employee.id)}
             <Copy aria-hidden="true" className="size-2.5" />
           </button>
-          <div className="mt-0.5 flex flex-wrap items-center gap-2">
+          <div className="mt-0.5 flex flex-nowrap items-center gap-2">
             <Link
               className="flex min-h-[var(--spacing-tap)] w-fit items-center gap-1.5 text-[length:var(--text-label)] font-semibold text-blue-600 outline-none"
               href="/profile/edit"
@@ -105,7 +105,7 @@ export function ProfileCard() {
                 {employee.occupation}
               </span>
             ) : (
-              <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--color-warning-soft)] px-2.5 py-1 text-[length:var(--text-caption)] font-bold text-[var(--color-warning)]">
+              <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full bg-[var(--color-warning-soft)] px-2.5 py-1 text-[length:var(--text-caption)] font-bold text-[var(--color-warning)]">
                 <span
                   aria-hidden="true"
                   className="size-1.5 shrink-0 rounded-full bg-current"
