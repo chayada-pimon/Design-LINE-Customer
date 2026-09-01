@@ -14,15 +14,18 @@ export default function HomePage() {
           paddingBottom: "max(1rem, env(safe-area-inset-bottom))",
         }}
       >
+        <img
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-full -z-10 w-full select-none"
+          src="/images/BG.svg"
+        />
         <div className="mb-3 flex items-end justify-between gap-4 px-1">
           <div>
             <h2 className="mt-0.5 text-[length:var(--text-lg)] font-extrabold text-[var(--color-text)]">
               เมนูบริการ
             </h2>
           </div>
-          <span className="pb-0.5 text-[length:var(--text-caption)] text-[var(--color-text-muted)]">
-            เลือกรายการ
-          </span>
         </div>
         <MenuList />
       </div>

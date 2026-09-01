@@ -79,6 +79,12 @@ export function formatThaiMonth(monthKey: string) {
   return date.toLocaleDateString("th-TH", { month: "long", year: "numeric" })
 }
 
+export function formatThaiYear(year: string) {
+  const date = new Date(`${year}-01-01`)
+  if (Number.isNaN(date.getTime())) return year
+  return date.toLocaleDateString("th-TH", { year: "numeric" })
+}
+
 export const receipts: Receipt[] = [
   {
     id: "1",

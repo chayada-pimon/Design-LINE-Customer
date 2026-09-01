@@ -8,6 +8,7 @@ type MenuCardProps = {
   title: string
   subtitle: string
   variant?: "default" | "hero"
+  badge?: string
 }
 
 function BranchIllustration() {
@@ -23,7 +24,7 @@ function BranchIllustration() {
   )
 }
 
-export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default" }: MenuCardProps) {
+export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default", badge }: MenuCardProps) {
   const isHero = variant === "hero"
 
   return (
@@ -46,8 +47,16 @@ export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default
         <span className="block text-[length:var(--text-label)] font-bold text-[var(--color-text)]">
           {title}
         </span>
-        <span className="mt-0.5 block truncate text-[length:var(--text-caption)] text-slate-500">
-          {subtitle}
+        <span className="mt-0.5 flex min-w-0 items-center gap-2">
+          <span className="truncate text-[length:var(--text-caption)] text-slate-500">
+            {subtitle}
+          </span>
+          {badge ? (
+            <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[var(--color-warning-soft)] px-2 py-0.5 text-[length:var(--text-caption)] font-semibold text-[var(--color-warning)]">
+              <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-current" />
+              {badge}
+            </span>
+          ) : null}
         </span>
       </span>
       {isHero ? <BranchIllustration /> : null}

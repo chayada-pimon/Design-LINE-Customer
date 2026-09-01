@@ -9,7 +9,13 @@ type MenuItem = {
   subtitle: string
   icon: LucideIcon
   variant?: "default" | "hero"
+  badge?: string
 }
+
+const hasIncompleteBranchInfo = branches.some(
+  ({ address, phone, contractStart, contractEnd }) =>
+    !address?.trim() || !phone?.trim() || !contractStart || !contractEnd
+)
 
 const menuItems: MenuItem[] = [
   {
@@ -18,6 +24,7 @@ const menuItems: MenuItem[] = [
     subtitle: `${branches.length} สาขา`,
     icon: MapPin,
     variant: "hero",
+    badge: hasIncompleteBranchInfo ? "ยังไม่ได้ระบุ" : undefined,
   },
   {
     href: "/invoices",
@@ -56,8 +63,9 @@ export function MenuList({ loading = false }: MenuListProps) {
 
   return (
     <div aria-label="เมนูหลัก" className="flex flex-col gap-3">
-      {menuItems.map(({ href, title, subtitle, icon, variant }) => (
+      {menuItems.map(({ href, title, subtitle, icon, variant, badge }) => (
         <MenuCard
+          badge={badge}
           href={href}
           icon={icon}
           key={href}

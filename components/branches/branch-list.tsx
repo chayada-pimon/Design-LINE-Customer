@@ -79,7 +79,7 @@ export function BranchList() {
                               aria-hidden="true"
                               className="size-1.5 shrink-0 rounded-full bg-current"
                             />
-                            ข้อมูลไม่ครบ
+                            ยังไม่ได้ระบุ
                           </span>
                         ) : null}
                       </div>

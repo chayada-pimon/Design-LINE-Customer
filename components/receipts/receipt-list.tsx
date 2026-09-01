@@ -11,7 +11,7 @@ import {
   getMonthKey,
   receipts,
 } from "@/components/receipts/receipt-data"
-import { ALL_MONTHS, ReceiptMonthFilter } from "@/components/receipts/receipt-month-filter"
+import { ALL_MONTHS, matchesMonthFilter, ReceiptMonthFilter } from "@/components/receipts/receipt-month-filter"
 import { ReceiptSummaryBar } from "@/components/receipts/receipt-summary-bar"
 
 function ReceiptListSkeleton() {
@@ -45,8 +45,8 @@ export function ReceiptList() {
 
   const filtered = useMemo(() => {
     if (monthKey === ALL_MONTHS) return receipts
-    return receipts.filter((receipt) => getMonthKey(receipt.paymentDate) === monthKey)
-  }, [monthKey])
+    return receipts.filter((receipt) => matchesMonthFilter(getMonthKey(receipt.paymentDate), monthKey, months))
+  }, [monthKey, months])
 
   const sorted = useMemo(
     () => [...filtered].sort((a, b) => b.paymentDate.localeCompare(a.paymentDate)),
