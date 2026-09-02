@@ -59,7 +59,7 @@ export function Header() {
             หน้าหลัก
           </h1>
         </div>
-        <div className="relative z-10">
+        <div className="relative z-10 mt-6">
           <ProfileCard />
         </div>
       </header>
