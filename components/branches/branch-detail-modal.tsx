@@ -56,7 +56,7 @@ function Row({ icon, label, value }: { icon: ReactNode; label: string; value?: s
   return (
     <div className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
       <span className="flex items-center gap-2 text-[length:var(--text-label)] text-[var(--color-text-muted)]">
-        <span aria-hidden="true" className="text-[var(--color-text-subtle)]">
+        <span aria-hidden="true" className="grid size-6 shrink-0 place-items-center text-[var(--color-text-subtle)]">
           {icon}
         </span>
         {label}
@@ -70,7 +70,7 @@ function StackedRow({ icon, label, value }: { icon: ReactNode; label: string; va
   return (
     <div className="space-y-1 py-3 first:pt-0 last:pb-0">
       <span className="flex items-center gap-2 text-[length:var(--text-label)] text-[var(--color-text-muted)]">
-        <span aria-hidden="true" className="text-[var(--color-text-subtle)]">
+        <span aria-hidden="true" className="grid size-6 shrink-0 place-items-center text-[var(--color-text-subtle)]">
           {icon}
         </span>
         {label}

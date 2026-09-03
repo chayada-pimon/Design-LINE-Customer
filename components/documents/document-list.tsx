@@ -55,7 +55,7 @@ const STATUS_TAG: Record<DocumentUrgencyGroup, { label: string; classes: string 
 
 function getStatusTag(document: CompanyDocument, group: DocumentUrgencyGroup) {
   if (group !== "general") return STATUS_TAG[group]
-  const label = document.responseStatus === "consented" ? "ยินยอมแล้ว" : "ตอบแล้ว"
+  const label = "ยินยอม"
   return { label, classes: STATUS_TAG.general.classes }
 }
 
@@ -92,7 +92,7 @@ function DocumentCard({ document }: { document: CompanyDocument }) {
       <div className="mt-3 flex items-center justify-between border-t border-[var(--color-border)] pt-3">
         <div className="space-y-0.5 text-[length:var(--text-h2)] text-[var(--color-text-muted)]">
           <p>เผยแพร่ {formatThaiDate(document.publishedDate)}</p>
-          {document.dueDate ? <p>ครบกำหนดตอบกลับ {formatThaiDate(document.dueDate)}</p> : null}
+          {document.dueDate ? <p>ครบกำหนด {formatThaiDate(document.dueDate)}</p> : null}
         </div>
         <ChevronRight aria-hidden="true" className="size-5 shrink-0 text-[var(--color-text-subtle)]" />
       </div>

@@ -53,7 +53,7 @@ export function ProfileCard() {
   return (
     <section
       aria-label="ข้อมูลผู้ใช้งาน"
-      className="relative mt-1 min-h-72 overflow-hidden rounded-2xl bg-gradient-to-br from-yellow-300 via-amber-100 via-40% to-white p-5 shadow-[var(--shadow-card)]"
+      className="relative mt-1 min-h-80 overflow-hidden rounded-2xl bg-gradient-to-br from-yellow-300 via-amber-100 via-40% to-white p-6 shadow-[var(--shadow-card)]"
     >
       <span
         aria-hidden="true"
@@ -105,13 +105,13 @@ export function ProfileCard() {
         <circle cx="90%" cy="65%" opacity="0.35" r="1.5" />
         <circle cx="18%" cy="80%" opacity="0.35" r="1.5" />
       </svg>
-      <div className="relative flex h-full translate-y-4 items-center justify-center gap-3 text-left">
+      <div className="relative flex h-full translate-y-4 items-center justify-center gap-6 text-left">
         <span
           aria-label={`รูปโปรไฟล์ของ ${employee.name}`}
-          className="grid size-20 shrink-0 place-items-center rounded-full bg-white p-[2px] shadow-[var(--shadow-card)] sm:size-24"
+          className="grid size-24 shrink-0 place-items-center rounded-full border-2 border-[var(--color-brand-header)] bg-white p-[2px] shadow-[var(--shadow-card)]"
           role="img"
         >
-          <span className="grid size-full place-items-center overflow-hidden rounded-full bg-white text-blue-300">
+          <span className="grid size-full place-items-center overflow-hidden rounded-full bg-white text-[var(--color-brand-header)] opacity-40">
             <SharkIcon aria-hidden="true" className="size-full" preserveAspectRatio="xMidYMid meet" />
           </span>
         </span>

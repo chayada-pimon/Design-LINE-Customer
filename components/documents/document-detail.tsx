@@ -160,15 +160,23 @@ export function DocumentDetail({ document: initialDocument }: { document: Compan
         ) : null}
 
         {/* วันที่ */}
-        <div className="mt-3 space-y-1.5 rounded-[var(--radius-btn)] border border-[var(--color-border)] bg-[var(--color-surface-sunken)] px-3 py-2.5 text-[length:var(--text-label)] text-[var(--color-text-muted)]">
-          <p className="flex items-center gap-1.5">
-            <Calendar aria-hidden="true" className="size-3.5 shrink-0 text-[var(--color-text-subtle)]" />
-            เผยแพร่ {formatThaiDate(document.publishedDate)}
-          </p>
-          <p className="flex items-center gap-1.5">
-            <Calendar aria-hidden="true" className="size-3.5 shrink-0 text-[var(--color-text-subtle)]" />
-            {document.dueDate ? `ครบกำหนด ${formatThaiDate(document.dueDate)}` : "ไม่จำกัดระยะเวลา"}
-          </p>
+        <div className="mt-3 space-y-1.5 border-t border-[var(--color-border)] pt-3 text-[length:var(--text-label)] text-[var(--color-text-muted)]">
+          <div className="flex items-center justify-between gap-2">
+            <span className="flex items-center gap-1.5">
+              <Calendar aria-hidden="true" className="size-3.5 shrink-0 text-[var(--color-text-subtle)]" />
+              เผยแพร่
+            </span>
+            <span className="text-[var(--color-text-muted)]">{formatThaiDate(document.publishedDate)}</span>
+          </div>
+          <div className="flex items-center justify-between gap-2">
+            <span className="flex items-center gap-1.5">
+              <Calendar aria-hidden="true" className="size-3.5 shrink-0 text-[var(--color-text-subtle)]" />
+              ครบกำหนด
+            </span>
+            <span className="text-[var(--color-text-muted)]">
+              {document.dueDate ? formatThaiDate(document.dueDate) : "ไม่จำกัดระยะเวลา"}
+            </span>
+          </div>
         </div>
 
         <div aria-hidden="true" ref={sentinelRef} />

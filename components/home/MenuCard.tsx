@@ -1,5 +1,4 @@
 import { ChevronRight, type LucideIcon } from "lucide-react"
-import Image from "next/image"
 import Link from "next/link"
 
 import { Tag } from "@/components/ui/tag"
@@ -11,19 +10,6 @@ type MenuCardProps = {
   subtitle: string
   variant?: "default" | "hero"
   badge?: string
-}
-
-function BranchIllustration() {
-  return (
-    <Image
-      alt=""
-      aria-hidden="true"
-      className="shrink-0 object-contain"
-      height={56}
-      src="/branch-illustration.png"
-      width={74}
-    />
-  )
 }
 
 export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default", badge }: MenuCardProps) {
@@ -56,7 +42,6 @@ export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default
           {badge ? <Tag className="bg-white text-[var(--color-warning)] shadow-sm">{badge}</Tag> : null}
         </span>
       </span>
-      {isHero ? <BranchIllustration /> : null}
       <ChevronRight aria-hidden="true" className="size-5 shrink-0 text-[var(--color-text-subtle)]" />
     </Link>
   )
