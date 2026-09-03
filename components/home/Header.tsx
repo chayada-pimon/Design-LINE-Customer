@@ -55,7 +55,7 @@ export function Header() {
           </button>
         </div>
         <div className="relative z-10 mt-3">
-          <h1 className="mt-1 text-center text-[length:var(--text-h1)] leading-[var(--text-h1--line-height)] font-extrabold text-white">
+          <h1 className="mt-1 text-center text-[length:var(--text-lg)] leading-[var(--text-lg--line-height)] font-bold text-white">
             หน้าหลัก
           </h1>
         </div>

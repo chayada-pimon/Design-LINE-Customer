@@ -12,7 +12,7 @@ export function SectionCard({ step, title, subtitle, children }: SectionCardProp
     <section className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)]">
       <div className="mb-4 flex items-start gap-2.5">
         {step ? (
-          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[var(--color-brand-header)] text-[length:var(--text-caption)] font-bold text-[var(--color-surface)]">
+          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[var(--color-brand-header)] text-[length:var(--text-h2)] font-bold text-[var(--color-surface)]">
             {step}
           </span>
         ) : null}
@@ -21,7 +21,7 @@ export function SectionCard({ step, title, subtitle, children }: SectionCardProp
             {title}
           </h2>
           {subtitle ? (
-            <p className="text-[length:var(--text-caption)] text-[var(--color-text-subtle)]">
+            <p className="text-[length:var(--text-h2)] text-[var(--color-text-subtle)]">
               {subtitle}
             </p>
           ) : null}

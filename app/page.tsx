@@ -20,9 +20,9 @@ export default function HomePage() {
           className="pointer-events-none absolute inset-x-0 bottom-full -z-10 w-full select-none"
           src="/images/BG.svg"
         />
-        <div className="mb-3 flex items-end justify-between gap-4 px-1">
+        <div className="mb-3 flex items-end justify-between gap-4">
           <div>
-            <h2 className="mt-0.5 text-[length:var(--text-lg)] font-extrabold text-[var(--color-text)]">
+            <h2 className="mt-0.5 text-[length:var(--text-base)] font-bold text-[var(--color-text)]">
               เมนูบริการ
             </h2>
           </div>

@@ -45,7 +45,7 @@ type PersonalInfoSectionProps = {
 
 function LockedBadge() {
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-[var(--color-border)] px-2.5 py-1 text-[length:var(--text-caption)] font-normal text-[var(--color-text-muted)]">
+    <span className="inline-flex items-center gap-1 rounded-full bg-[var(--color-border)] px-2.5 py-1 text-[length:var(--text-h2)] font-normal text-[var(--color-text-muted)]">
       <Lock className="size-3" />
       แก้ไขไม่ได้
     </span>

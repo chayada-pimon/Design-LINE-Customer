@@ -1,3 +1,4 @@
+import { Tag } from "@/components/ui/tag"
 import { getDaysRemaining } from "@/components/documents/document-data"
 
 export function DocumentTimeBadge({ dueDate }: { dueDate: string }) {
@@ -11,11 +12,5 @@ export function DocumentTimeBadge({ dueDate }: { dueDate: string }) {
       ? "bg-amber-100 text-amber-700"
       : "bg-blue-100 text-[var(--color-brand-header)]"
 
-  return (
-    <span
-      className={`inline-flex shrink-0 items-center rounded-full px-2.5 py-1 text-[length:var(--text-caption)] font-bold ${classes}`}
-    >
-      {overdue ? "เกินกำหนด" : `เหลือ ${days} วัน`}
-    </span>
-  )
+  return <Tag className={classes}>{overdue ? "เกินกำหนด" : `เหลือ ${days} วัน`}</Tag>
 }

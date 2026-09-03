@@ -1,3 +1,4 @@
+import { Tag } from "@/components/ui/tag"
 import {
   DOCUMENT_RESPONSE_STATUS_LABEL,
   type DocumentResponseStatus,
@@ -10,12 +11,5 @@ const STATUS_CLASSES: Record<DocumentResponseStatus, string> = {
 }
 
 export function DocumentResponseBadge({ status }: { status: DocumentResponseStatus }) {
-  return (
-    <span
-      className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[length:var(--text-caption)] font-bold ${STATUS_CLASSES[status]}`}
-    >
-      <span aria-hidden="true" className="size-1.5 rounded-full bg-current" />
-      {DOCUMENT_RESPONSE_STATUS_LABEL[status]}
-    </span>
-  )
+  return <Tag className={STATUS_CLASSES[status]}>{DOCUMENT_RESPONSE_STATUS_LABEL[status]}</Tag>
 }

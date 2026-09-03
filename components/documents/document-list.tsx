@@ -1,9 +1,11 @@
 "use client"
 
-import { AlertTriangle, FileText, Inbox } from "lucide-react"
+import { ChevronRight, FileText, Inbox } from "lucide-react"
+import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
 
 import {
+  DOCUMENT_TYPE_LABEL,
   documents,
   formatThaiDate,
   getUrgencyGroup,
@@ -11,9 +13,13 @@ import {
   type DocumentUrgencyGroup,
 } from "@/components/documents/document-data"
 import { ALL_DATES, parseDateRange } from "@/components/documents/document-date-filter"
-import { DocumentResponseBadge } from "@/components/documents/document-response-badge"
-import { DocumentTimeBadge } from "@/components/documents/document-time-badge"
-import { DocumentTypeBadge } from "@/components/documents/document-type-badge"
+import { loadDocumentResponse } from "@/lib/document-storage"
+import { Tag } from "@/components/ui/tag"
+
+function withStoredStatus(document: CompanyDocument): CompanyDocument {
+  const stored = loadDocumentResponse(document.id)
+  return stored ? { ...document, responseStatus: stored } : document
+}
 
 const GROUP_ORDER: DocumentUrgencyGroup[] = ["overdue", "needsResponse", "general"]
 
@@ -41,59 +47,75 @@ function DocumentListSkeleton() {
   )
 }
 
+const STATUS_TAG: Record<DocumentUrgencyGroup, { label: string; classes: string }> = {
+  overdue: { label: "เกินกำหนด", classes: "bg-[var(--color-danger-soft)] text-[var(--color-danger)]" },
+  needsResponse: { label: "รอตอบ", classes: "bg-amber-100 text-amber-700" },
+  general: { label: "", classes: "bg-[var(--color-success-soft)] text-[var(--color-success)]" },
+}
+
+function getStatusTag(document: CompanyDocument, group: DocumentUrgencyGroup) {
+  if (group !== "general") return STATUS_TAG[group]
+  const label = document.responseStatus === "consented" ? "ยินยอมแล้ว" : "ตอบแล้ว"
+  return { label, classes: STATUS_TAG.general.classes }
+}
+
 function DocumentCard({ document }: { document: CompanyDocument }) {
   const group = getUrgencyGroup(document)
+  const statusTag = getStatusTag(document, group)
 
   return (
-    <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)]">
+    <Link
+      className="interactive-card block w-full rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 text-left shadow-[var(--shadow-card)] outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--color-focus)] active:bg-[var(--color-surface-sunken)]"
+      href={`/documents/${document.id}`}
+    >
       <div className="flex items-start gap-3">
         <span
           className={`grid size-11 shrink-0 place-items-center rounded-full ${
             group === "overdue" ? "bg-[var(--color-danger-soft)] text-[var(--color-danger)]" : "bg-blue-100 text-[var(--color-brand-header)]"
           }`}
         >
-          {group === "overdue" ? (
-            <AlertTriangle aria-hidden="true" className="size-5" />
-          ) : (
-            <FileText aria-hidden="true" className="size-5" />
-          )}
+          <FileText aria-hidden="true" className="size-5" />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="text-[length:var(--text-label)] font-bold text-[var(--color-text)]">
-            {document.title}
-          </p>
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-            <DocumentTypeBadge type={document.type} />
-            <DocumentResponseBadge status={document.responseStatus} />
-            {document.dueDate && document.responseStatus === "pending" ? (
-              <DocumentTimeBadge dueDate={document.dueDate} />
-            ) : null}
+          <div className="flex items-center justify-between gap-2">
+            <p className="truncate text-[length:var(--text-label)] font-bold text-[var(--color-text)]">
+              {document.title}
+            </p>
+            <Tag className={statusTag.classes}>{statusTag.label}</Tag>
           </div>
+          <p className="mt-1 text-[length:var(--text-h2)] text-[var(--color-text-muted)]">
+            {DOCUMENT_TYPE_LABEL[document.type]}
+          </p>
         </div>
       </div>
 
-      <div className="mt-3 space-y-0.5 border-t border-[var(--color-border)] pt-3 text-[length:var(--text-caption)] text-[var(--color-text-muted)]">
-        <p>เผยแพร่ {formatThaiDate(document.publishedDate)}</p>
-        {document.dueDate ? <p>ครบกำหนดตอบกลับ {formatThaiDate(document.dueDate)}</p> : null}
+      <div className="mt-3 flex items-center justify-between border-t border-[var(--color-border)] pt-3">
+        <div className="space-y-0.5 text-[length:var(--text-h2)] text-[var(--color-text-muted)]">
+          <p>เผยแพร่ {formatThaiDate(document.publishedDate)}</p>
+          {document.dueDate ? <p>ครบกำหนดตอบกลับ {formatThaiDate(document.dueDate)}</p> : null}
+        </div>
+        <ChevronRight aria-hidden="true" className="size-5 shrink-0 text-[var(--color-text-subtle)]" />
       </div>
-    </div>
+    </Link>
   )
 }
 
 export function DocumentList({ dateKey }: { dateKey: string }) {
   const [loading, setLoading] = useState(true)
+  const [liveDocuments, setLiveDocuments] = useState(documents)
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 600)
+    setLiveDocuments(documents.map(withStoredStatus))
     return () => clearTimeout(timer)
   }, [])
 
   const filtered = useMemo(() => {
-    if (dateKey === ALL_DATES) return documents
+    if (dateKey === ALL_DATES) return liveDocuments
     const { start, end } = parseDateRange(dateKey)
-    if (!start) return documents
-    return documents.filter((document) => document.publishedDate >= start && document.publishedDate <= (end ?? start))
-  }, [dateKey])
+    if (!start) return liveDocuments
+    return liveDocuments.filter((document) => document.publishedDate >= start && document.publishedDate <= (end ?? start))
+  }, [dateKey, liveDocuments])
 
   const grouped = useMemo(() => {
     const groups: Record<DocumentUrgencyGroup, CompanyDocument[]> = {
@@ -130,12 +152,7 @@ export function DocumentList({ dateKey }: { dateKey: string }) {
 
           return (
             <section className="space-y-3" key={group}>
-              <h2
-                className={`flex items-center gap-1.5 text-[length:var(--text-label)] font-bold ${
-                  group === "overdue" ? "text-[var(--color-danger)]" : "text-[var(--color-text)]"
-                }`}
-              >
-                {group === "overdue" ? <AlertTriangle aria-hidden="true" className="size-4" /> : null}
+              <h2 className="flex items-center gap-1.5 text-[length:var(--text-label)] font-bold text-[var(--color-text)]">
                 {GROUP_LABEL[group]}
               </h2>
               <ul className="space-y-3">

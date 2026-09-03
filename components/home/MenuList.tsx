@@ -12,11 +12,6 @@ type MenuItem = {
   badge?: string
 }
 
-const hasIncompleteBranchInfo = branches.some(
-  ({ address, phone, contractStart, contractEnd }) =>
-    !address?.trim() || !phone?.trim() || !contractStart || !contractEnd
-)
-
 const menuItems: MenuItem[] = [
   {
     href: "/branches",
@@ -24,7 +19,6 @@ const menuItems: MenuItem[] = [
     subtitle: `${branches.length} สาขา`,
     icon: MapPin,
     variant: "hero",
-    badge: hasIncompleteBranchInfo ? "ยังไม่ได้ระบุ" : undefined,
   },
   {
     href: "/invoices",

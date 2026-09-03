@@ -19,7 +19,7 @@ export function HomeHeader({ showDrawer = true, backHref }: HomeHeaderProps) {
   }
 
   return (
-    <header className="relative flex h-14 items-center justify-end bg-[#1C4ED8] px-2 text-[var(--color-surface)]">
+    <header className="relative flex h-14 items-center justify-end bg-[#1C4ED8] px-4 text-[var(--color-surface)]">
       {backHref ? (
         <Link
           aria-label="ย้อนกลับ"

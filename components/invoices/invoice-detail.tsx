@@ -62,7 +62,7 @@ function Row({
         </span>
         {label}
       </span>
-      <span className="truncate text-right text-[length:var(--text-base)] leading-5 font-semibold text-[var(--color-text)]">
+      <span className="truncate text-right text-[length:var(--text-label)] leading-5 font-semibold text-[var(--color-text)]">
         {value}
       </span>
     </div>
@@ -171,7 +171,7 @@ export function InvoiceDetail({ invoice }: { invoice: Invoice }) {
             <span>ภาษีมูลค่าเพิ่ม 7%</span>
             <span>{formatCurrency(tax)} บาท</span>
           </div>
-          <div className="flex items-center justify-between border-t border-[var(--color-border)] pt-2.5 text-[length:var(--text-lg)] leading-6 font-bold text-[var(--color-text)]">
+          <div className="flex items-center justify-between border-t border-[var(--color-border)] pt-2.5 text-[length:var(--text-base)] leading-6 font-bold text-[var(--color-text)]">
             <span>ยอดสุทธิ</span>
             <span>{formatCurrency(netTotal)} บาท</span>
           </div>

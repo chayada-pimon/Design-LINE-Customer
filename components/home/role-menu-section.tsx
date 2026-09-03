@@ -56,7 +56,7 @@ export function RoleMenuSection({
                 className={
                   featured
                     ? "mt-1 block text-[length:var(--text-label)] text-current/85"
-                    : "mt-1 text-[length:var(--text-caption)] text-[var(--color-text-muted)]"
+                    : "mt-1 text-[length:var(--text-h2)] text-[var(--color-text-muted)]"
                 }
               >
                 {description}

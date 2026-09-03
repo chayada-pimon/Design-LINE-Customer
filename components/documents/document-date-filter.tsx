@@ -151,7 +151,7 @@ export function DocumentDateFilter({
         type="button"
       >
         <Calendar aria-hidden="true" className="size-4 shrink-0 text-[var(--color-brand-header)]" />
-        <span className="max-w-40 truncate text-[length:var(--text-caption)] font-bold text-[var(--color-text)]">
+        <span className="max-w-40 truncate text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
           {label}
         </span>
         <ChevronDown aria-hidden="true" className="size-3.5 shrink-0 text-[var(--color-text-subtle)]" />
@@ -192,7 +192,7 @@ export function DocumentDateFilter({
               >
                 <ChevronLeft aria-hidden="true" className="size-4" />
               </button>
-              <p className="text-[length:var(--text-caption)] font-bold text-[var(--color-text)]">
+              <p className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
                 {formatThaiMonthYear(viewYear, viewMonth)}
               </p>
               <button
@@ -209,7 +209,7 @@ export function DocumentDateFilter({
               <div className="flex flex-1 items-center justify-between gap-1 rounded-[var(--radius-btn)] border border-[var(--color-border-strong)] py-1.5 pr-1.5 pl-3">
                 <div className="min-w-0">
                   <p className="text-[length:var(--text-caption)] font-semibold text-[var(--color-text-muted)]">เริ่มต้น</p>
-                  <p className="truncate text-[length:var(--text-caption)] font-bold text-[var(--color-text)]">
+                  <p className="truncate text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
                     {rangeStart ? formatThaiDate(rangeStart) : "-"}
                   </p>
                 </div>
@@ -226,7 +226,7 @@ export function DocumentDateFilter({
               <div className="flex flex-1 items-center justify-between gap-1 rounded-[var(--radius-btn)] border border-[var(--color-border-strong)] py-1.5 pr-1.5 pl-3">
                 <div className="min-w-0">
                   <p className="text-[length:var(--text-caption)] font-semibold text-[var(--color-text-muted)]">สิ้นสุด</p>
-                  <p className="truncate text-[length:var(--text-caption)] font-bold text-[var(--color-text)]">
+                  <p className="truncate text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
                     {rangeEnd ? formatThaiDate(rangeEnd) : "-"}
                   </p>
                 </div>
@@ -245,7 +245,7 @@ export function DocumentDateFilter({
             <div className="mt-2 grid grid-cols-7 gap-1">
               {WEEKDAY_LABELS.map((label) => (
                 <span
-                  className="grid h-7 place-items-center text-[length:var(--text-caption)] font-bold text-[var(--color-text)]"
+                  className="grid h-7 place-items-center text-[length:var(--text-h2)] font-bold text-[var(--color-text)]"
                   key={label}
                 >
                   {label}
@@ -270,7 +270,7 @@ export function DocumentDateFilter({
                   <button
                     aria-label={formatThaiDate(dateKey)}
                     aria-pressed={isEndpoint}
-                    className={`relative grid h-8 place-items-center text-[length:var(--text-caption)] font-semibold outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
+                    className={`relative grid h-8 place-items-center text-[length:var(--text-h2)] font-semibold outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
                       isEndpoint
                         ? "rounded-full bg-[var(--color-brand-header)] text-[var(--color-surface)]"
                         : inRange
@@ -297,14 +297,14 @@ export function DocumentDateFilter({
 
             <div className="mt-3 flex items-center gap-2">
               <button
-                className="rounded-[var(--radius-btn)] border border-[var(--color-border)] px-4 py-2 text-center text-[length:var(--text-caption)] font-bold text-[var(--color-text-muted)] active:bg-[var(--color-surface-sunken)]"
+                className="rounded-[var(--radius-btn)] border border-[var(--color-border)] px-4 py-2 text-center text-[length:var(--text-label)] font-bold text-[var(--color-text-muted)] active:bg-[var(--color-surface-sunken)]"
                 onClick={selectAll}
                 type="button"
               >
                 ทั้งหมด
               </button>
               <button
-                className={`flex-1 rounded-[var(--radius-btn)] py-2 text-center text-[length:var(--text-caption)] font-bold ${
+                className={`flex-1 rounded-[var(--radius-btn)] py-2 text-center text-[length:var(--text-label)] font-bold ${
                   rangeStart
                     ? "bg-[var(--color-action)] text-white"
                     : "bg-[var(--color-surface-sunken)] text-[var(--color-text-subtle)]"

@@ -5,6 +5,7 @@ import { useMemo, useState } from "react"
 
 import { BranchDetailModal } from "@/components/branches/branch-detail-modal"
 import { branches, type Branch } from "@/components/branches/branch-data"
+import { Tag } from "@/components/ui/tag"
 
 export function BranchList() {
   const [query, setQuery] = useState("")
@@ -60,47 +61,45 @@ export function BranchList() {
                       <Building2 aria-hidden="true" className="size-5" />
                     </span>
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-start justify-between gap-2">
                         <p className="truncate text-[length:var(--text-label)] font-bold text-[var(--color-text)]">
                           {name}
                         </p>
-                        <ChevronRight
-                          aria-hidden="true"
-                          className="size-5 shrink-0 text-[var(--color-text-subtle)]"
-                        />
+                        {hasIncompleteInfo ? (
+                          <Tag className="bg-[var(--color-warning-soft)] text-[var(--color-warning)]">
+                            รอระบุข้อมูล
+                          </Tag>
+                        ) : null}
                       </div>
                       <div className="mt-1.5 flex flex-wrap items-center gap-2">
-                        <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-[length:var(--text-caption)] font-bold text-[var(--color-brand-header)]">
+                        <span className="inline-flex shrink-0 items-center rounded-full bg-blue-100 px-2 py-0.5 text-[length:var(--text-h2)] font-bold text-[var(--color-brand-header)]">
                           รหัส {code}
                         </span>
-                        {hasIncompleteInfo ? (
-                          <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--color-warning-soft)] px-2 py-0.5 text-[length:var(--text-caption)] font-semibold text-[var(--color-warning)]">
-                            <span
-                              aria-hidden="true"
-                              className="size-1.5 shrink-0 rounded-full bg-current"
-                            />
-                            ยังไม่ได้ระบุ
-                          </span>
-                        ) : null}
                       </div>
                     </div>
                   </div>
 
                   <div className="mt-3 space-y-1.5 border-t border-[var(--color-border)] pt-3">
-                    <p className="flex items-start gap-2 text-[length:var(--text-caption)] text-[var(--color-text-muted)]">
+                    <p className="flex items-start gap-2 text-[length:var(--text-h2)] text-[var(--color-text-muted)]">
                       <MapPin
                         aria-hidden="true"
                         className="mt-0.5 size-3.5 shrink-0 text-[var(--color-text-subtle)]"
                       />
                       <span>{address}</span>
                     </p>
-                    <p className="flex items-center gap-2 text-[length:var(--text-caption)] text-[var(--color-text-muted)]">
-                      <Phone
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="flex items-center gap-2 text-[length:var(--text-h2)] text-[var(--color-text-muted)]">
+                        <Phone
+                          aria-hidden="true"
+                          className="size-3.5 shrink-0 text-[var(--color-text-subtle)]"
+                        />
+                        <span>{phone ?? "ไม่พบข้อมูล"}</span>
+                      </p>
+                      <ChevronRight
                         aria-hidden="true"
-                        className="size-3.5 shrink-0 text-[var(--color-text-subtle)]"
+                        className="size-5 shrink-0 text-[var(--color-text-subtle)]"
                       />
-                      <span>{phone ?? "ไม่พบข้อมูล"}</span>
-                    </p>
+                    </div>
                   </div>
                 </button>
               </li>

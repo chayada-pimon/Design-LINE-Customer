@@ -63,7 +63,7 @@ export function InvoiceBranchFilter({
         type="button"
       >
         <Building2 aria-hidden="true" className="size-4 shrink-0 text-[var(--color-brand-header)]" />
-        <span className="min-w-0 truncate text-[length:var(--text-caption)] font-bold text-[var(--color-text)]">
+        <span className="min-w-0 truncate text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
           {label}
         </span>
       </button>
@@ -99,27 +99,27 @@ export function InvoiceBranchFilter({
               <li>
                 <button
                   aria-selected={value === ALL_BRANCHES}
-                  className={`flex w-full items-center justify-between gap-2 rounded-[var(--radius-btn)] px-2.5 py-2.5 text-left text-[length:var(--text-base)] font-semibold ${
+                  className={`flex w-full items-center justify-between gap-2 rounded-[var(--radius-btn)] border px-2.5 py-2.5 text-left text-[length:var(--text-label)] font-semibold ${
                     value === ALL_BRANCHES
-                      ? "bg-blue-50 text-[var(--color-brand-header)]"
-                      : "text-[var(--color-text)] active:bg-[var(--color-surface-sunken)]"
+                      ? "border-[var(--color-brand-header)] bg-blue-50 text-[var(--color-brand-header)]"
+                      : "border-transparent text-[var(--color-text)] active:bg-[var(--color-surface-sunken)]"
                   }`}
                   onClick={() => select(ALL_BRANCHES)}
                   role="option"
                   type="button"
                 >
                   ทุกสาขา
-                  {value === ALL_BRANCHES ? <Check aria-hidden="true" className="size-4" /> : null}
+                  {value === ALL_BRANCHES ? <Check aria-hidden="true" className="size-4 shrink-0 text-[var(--color-brand-header)]" /> : null}
                 </button>
               </li>
               {branches.map((branch) => (
                 <li key={branch.id}>
                   <button
                     aria-selected={value === branch.id}
-                    className={`flex w-full items-center justify-between gap-2 rounded-[var(--radius-btn)] px-2.5 py-2.5 text-left text-[length:var(--text-base)] font-semibold ${
+                    className={`flex w-full items-center justify-between gap-2 rounded-[var(--radius-btn)] border px-2.5 py-2.5 text-left text-[length:var(--text-label)] font-semibold ${
                       value === branch.id
-                        ? "bg-blue-50 text-[var(--color-brand-header)]"
-                        : "text-[var(--color-text)] active:bg-[var(--color-surface-sunken)]"
+                        ? "border-[var(--color-brand-header)] bg-blue-50 text-[var(--color-brand-header)]"
+                        : "border-transparent text-[var(--color-text)] active:bg-[var(--color-surface-sunken)]"
                     }`}
                     onClick={() => select(branch.id)}
                     role="option"
@@ -127,11 +127,13 @@ export function InvoiceBranchFilter({
                   >
                     <span className="flex min-w-0 items-center gap-1.5">
                       <span className="truncate">สาขา {branch.name}</span>
-                      <span className="shrink-0 rounded-full bg-blue-100 px-1.5 py-0.5 text-[10px] font-bold text-[var(--color-brand-header)]">
+                      <span className="shrink-0 rounded-full bg-blue-100 px-1.5 py-0.5 text-[length:var(--text-h2)] font-bold text-[var(--color-brand-header)]">
                         {branch.code}
                       </span>
                     </span>
-                    {value === branch.id ? <Check aria-hidden="true" className="size-4 shrink-0" /> : null}
+                    {value === branch.id ? (
+                      <Check aria-hidden="true" className="size-4 shrink-0 text-[var(--color-brand-header)]" />
+                    ) : null}
                   </button>
                 </li>
               ))}

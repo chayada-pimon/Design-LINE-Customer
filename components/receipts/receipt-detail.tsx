@@ -60,7 +60,7 @@ function Row({
         </span>
         {label}
       </span>
-      <span className="truncate text-right text-[length:var(--text-base)] leading-5 font-semibold text-[var(--color-text)]">
+      <span className="truncate text-right text-[length:var(--text-label)] leading-5 font-semibold text-[var(--color-text)]">
         {value}
       </span>
     </div>
@@ -127,10 +127,10 @@ export function ReceiptDetail({ receipt }: { receipt: Receipt }) {
           {receipt.items.map((item, index) => (
             <li
               key={index}
-              className="flex items-center justify-between gap-3 py-2.5 first:pt-0 last:pb-0"
+              className="flex items-end justify-between gap-3 py-2.5 first:pt-0 last:pb-0"
             >
               <div className="min-w-0 flex-1">
-                <p className="truncate text-[length:var(--text-base)] leading-6 font-semibold text-[var(--color-text)]">
+                <p className="truncate text-[length:var(--text-label)] leading-5 font-semibold text-[var(--color-text)]">
                   {item.name}
                 </p>
                 <p className="text-[length:var(--text-label)] leading-5 text-[var(--color-text-muted)]">
@@ -138,7 +138,7 @@ export function ReceiptDetail({ receipt }: { receipt: Receipt }) {
                 </p>
               </div>
               <p className="shrink-0 text-[length:var(--text-base)] leading-6 font-bold text-[var(--color-text)]">
-                {formatCurrency(item.quantity * item.unitPrice)}
+                {formatCurrency(item.quantity * item.unitPrice)} บาท
               </p>
             </li>
           ))}
@@ -146,7 +146,7 @@ export function ReceiptDetail({ receipt }: { receipt: Receipt }) {
       </section>
 
       <section className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)]">
-        <div className="flex items-center justify-between text-[length:var(--text-lg)] leading-6 font-bold text-[var(--color-text)]">
+        <div className="flex items-center justify-between text-[length:var(--text-base)] leading-6 font-bold text-[var(--color-text)]">
           <span>ยอดสุทธิ</span>
           <span>{formatCurrency(netTotal)} บาท</span>
         </div>

@@ -90,19 +90,13 @@ export function ReceiptList() {
                       <ReceiptIcon aria-hidden="true" className="size-5" />
                     </span>
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-2">
-                        <p className="truncate text-[length:var(--text-label)] font-bold text-[var(--color-text)]">
-                          {receipt.number}
-                        </p>
-                        <ChevronRight
-                          aria-hidden="true"
-                          className="size-5 shrink-0 text-[var(--color-text-subtle)]"
-                        />
-                      </div>
-                      <p className="mt-1 text-[length:var(--text-caption)] text-[var(--color-text-muted)]">
+                      <p className="truncate text-[length:var(--text-label)] font-bold text-[var(--color-text)]">
+                        {receipt.number}
+                      </p>
+                      <p className="mt-1 text-[length:var(--text-h2)] text-[var(--color-text-muted)]">
                         ชำระเมื่อ {formatThaiDate(receipt.paymentDate)}
                       </p>
-                      <p className="mt-1 truncate text-[length:var(--text-caption)] text-[var(--color-text-subtle)]">
+                      <p className="mt-1 truncate text-[length:var(--text-h2)] text-[var(--color-text-muted)]">
                         {receipt.items[0]?.name}
                         {receipt.items.length > 1 ? ` และอีก ${receipt.items.length - 1} รายการ` : ""}
                       </p>
@@ -110,9 +104,13 @@ export function ReceiptList() {
                   </div>
 
                   <div className="mt-3 flex items-center justify-between border-t border-[var(--color-border)] pt-3">
-                    <p className="text-[length:var(--text-lg)] font-bold text-[var(--color-text)]">
+                    <p className="text-[length:var(--text-base)] font-bold text-[var(--color-text)]">
                       {formatCurrency(netTotal)} <span className="text-[length:var(--text-caption)] font-normal text-[var(--color-text-muted)]">บาท</span>
                     </p>
+                    <ChevronRight
+                      aria-hidden="true"
+                      className="size-5 shrink-0 text-[var(--color-text-subtle)]"
+                    />
                   </div>
                 </Link>
               </li>

@@ -12,7 +12,7 @@ export function DocumentMonthFilter({ months, value, onChange }: DocumentMonthFi
   return (
     <select
       aria-label="กรองตามเดือน"
-      className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1.5 text-[length:var(--text-caption)] font-semibold text-[var(--color-text)] shadow-[var(--shadow-card)]"
+      className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1.5 text-[length:var(--text-h2)] font-semibold text-[var(--color-text)] shadow-[var(--shadow-card)]"
       onChange={(event) => onChange(event.target.value)}
       value={value}
     >

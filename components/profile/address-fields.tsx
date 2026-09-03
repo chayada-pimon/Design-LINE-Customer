@@ -1,5 +1,12 @@
+import { useMemo, useRef } from "react"
 import { THAI_PROVINCES } from "@/lib/thai-provinces"
-import { fieldInputClass, FormField, Select } from "@/components/profile/form-field"
+import {
+  findDistrictsByProvince,
+  findPostalCode,
+  findSubdistrictsByDistrict,
+} from "@/lib/thai-address-lookup"
+import { fieldInputClass, fieldLockedClass, FormField } from "@/components/profile/form-field"
+import { SearchSelect, type SearchSelectHandle } from "@/components/ui/search-select"
 
 export type AddressData = {
   address: string
@@ -28,8 +35,73 @@ export function AddressFields({ idPrefix, value, onChange }: AddressFieldsProps)
     onChange({ ...value, [key]: fieldValue })
   }
 
+  const districtSelectRef = useRef<SearchSelectHandle>(null)
+  const subdistrictSelectRef = useRef<SearchSelectHandle>(null)
+
+  const districts = useMemo(() => findDistrictsByProvince(value.province), [value.province])
+  const subdistrictMatches = useMemo(
+    () => findSubdistrictsByDistrict(value.province, value.district),
+    [value.province, value.district],
+  )
+
+  function handleProvinceChange(province: string) {
+    onChange({ ...value, province, district: "", subdistrict: "", postalCode: "" })
+  }
+
+  function handleDistrictChange(district: string) {
+    onChange({ ...value, district, subdistrict: "", postalCode: "" })
+  }
+
+  function handleSubdistrictChange(subdistrict: string) {
+    const postalCode = findPostalCode(value.province, value.district, subdistrict)
+    onChange({ ...value, subdistrict, postalCode })
+  }
+
   return (
     <div className="flex flex-col gap-4">
+      <FormField htmlFor={`${idPrefix}-province`} label="จังหวัด">
+        <SearchSelect
+          id={`${idPrefix}-province`}
+          onChange={handleProvinceChange}
+          onSelected={() => districtSelectRef.current?.open()}
+          options={THAI_PROVINCES}
+          placeholder="เลือกจังหวัด"
+          searchPlaceholder="ค้นหาจังหวัด"
+          value={value.province}
+        />
+      </FormField>
+
+      <FormField htmlFor={`${idPrefix}-district`} label="อำเภอ/เขต">
+        <SearchSelect
+          disabled={!value.province}
+          id={`${idPrefix}-district`}
+          onChange={handleDistrictChange}
+          onSelected={() => subdistrictSelectRef.current?.open()}
+          options={districts}
+          placeholder="เลือกอำเภอ/เขต"
+          ref={districtSelectRef}
+          searchPlaceholder="ค้นหาอำเภอ/เขต"
+          value={value.district}
+        />
+      </FormField>
+
+      <FormField htmlFor={`${idPrefix}-subdistrict`} label="ตำบล/แขวง">
+        <SearchSelect
+          disabled={!value.district}
+          id={`${idPrefix}-subdistrict`}
+          onChange={handleSubdistrictChange}
+          options={subdistrictMatches.map((match) => match.subdistrict)}
+          placeholder="เลือกตำบล/แขวง"
+          ref={subdistrictSelectRef}
+          searchPlaceholder="ค้นหาตำบล/แขวง"
+          value={value.subdistrict}
+        />
+      </FormField>
+
+      <FormField htmlFor={`${idPrefix}-postal-code`} label="รหัสไปรษณีย์">
+        <span className={fieldLockedClass}>{value.postalCode || "-"}</span>
+      </FormField>
+
       <FormField htmlFor={`${idPrefix}-address`} label="ที่อยู่">
         <textarea
           autoComplete="address-line1"
@@ -40,64 +112,6 @@ export function AddressFields({ idPrefix, value, onChange }: AddressFieldsProps)
           value={value.address}
         />
       </FormField>
-
-      <div className="grid grid-cols-2 gap-3">
-        <FormField htmlFor={`${idPrefix}-subdistrict`} label="ตำบล/แขวง">
-          <input
-            autoComplete="address-level4"
-            className={fieldInputClass}
-            id={`${idPrefix}-subdistrict`}
-            onChange={(event) => set("subdistrict", event.target.value)}
-            placeholder="เช่น สุเทพ"
-            type="text"
-            value={value.subdistrict}
-          />
-        </FormField>
-
-        <FormField htmlFor={`${idPrefix}-district`} label="อำเภอ/เขต">
-          <input
-            autoComplete="address-level3"
-            className={fieldInputClass}
-            id={`${idPrefix}-district`}
-            onChange={(event) => set("district", event.target.value)}
-            placeholder="เช่น เมืองเชียงใหม่"
-            type="text"
-            value={value.district}
-          />
-        </FormField>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <FormField htmlFor={`${idPrefix}-province`} label="จังหวัด">
-          <Select
-            autoComplete="address-level1"
-            id={`${idPrefix}-province`}
-            onChange={(event) => set("province", event.target.value)}
-            value={value.province}
-          >
-            <option value="">เลือกจังหวัด</option>
-            {THAI_PROVINCES.map((province) => (
-              <option key={province} value={province}>
-                {province}
-              </option>
-            ))}
-          </Select>
-        </FormField>
-
-        <FormField htmlFor={`${idPrefix}-postal-code`} label="รหัสไปรษณีย์">
-          <input
-            autoComplete="postal-code"
-            className={fieldInputClass}
-            id={`${idPrefix}-postal-code`}
-            inputMode="numeric"
-            maxLength={5}
-            onChange={(event) => set("postalCode", event.target.value.replace(/\D/g, ""))}
-            placeholder="ตัวเลข 5 หลัก"
-            type="text"
-            value={value.postalCode}
-          />
-        </FormField>
-      </div>
     </div>
   )
 }

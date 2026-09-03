@@ -20,7 +20,7 @@ export function InvoiceSummaryBar({ invoices }: { invoices: Invoice[] }) {
             {formatCurrency(totalDue)} <span className="text-[length:var(--text-label)] font-semibold text-[var(--color-text-muted)]">บาท</span>
           </p>
         </div>
-        <span className="inline-flex shrink-0 items-center rounded-full bg-blue-100 px-2.5 py-1 text-[length:var(--text-caption)] font-bold text-[var(--color-brand-header)]">
+        <span className="inline-flex shrink-0 items-center rounded-full bg-blue-100 px-2.5 py-1 text-[length:var(--text-h2)] font-bold text-[var(--color-brand-header)]">
           {unpaid.length} ใบ
         </span>
       </div>

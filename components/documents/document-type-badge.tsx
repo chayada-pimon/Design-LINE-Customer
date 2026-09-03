@@ -1,3 +1,4 @@
+import { Tag } from "@/components/ui/tag"
 import { DOCUMENT_TYPE_LABEL, type DocumentType } from "@/components/documents/document-data"
 
 const TYPE_CLASSES: Record<DocumentType, string> = {
@@ -7,11 +8,5 @@ const TYPE_CLASSES: Record<DocumentType, string> = {
 }
 
 export function DocumentTypeBadge({ type }: { type: DocumentType }) {
-  return (
-    <span
-      className={`inline-flex shrink-0 items-center rounded-full px-2.5 py-1 text-[length:var(--text-caption)] font-bold ${TYPE_CLASSES[type]}`}
-    >
-      {DOCUMENT_TYPE_LABEL[type]}
-    </span>
-  )
+  return <Tag className={TYPE_CLASSES[type]}>{DOCUMENT_TYPE_LABEL[type]}</Tag>
 }

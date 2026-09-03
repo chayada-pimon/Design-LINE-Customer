@@ -18,7 +18,7 @@ export function FormField({ label, htmlFor, required, hint, children }: FormFiel
       </span>
       {children}
       {hint ? (
-        <span className="text-[length:var(--text-caption)] text-[var(--color-text-subtle)]">
+        <span className="text-[length:var(--text-h2)] text-[var(--color-text-subtle)]">
           {hint}
         </span>
       ) : null}
@@ -32,7 +32,7 @@ export const fieldInputClass =
 export const fieldSelectClass = `${fieldInputClass} appearance-none pr-10`
 
 export const fieldLockedClass =
-  "min-h-[var(--spacing-tap)] w-full rounded-[var(--radius-btn)] border border-[var(--color-border)] bg-[var(--color-surface-sunken)] px-3.5 text-[length:var(--text-label)] text-[var(--color-text-muted)] flex items-center"
+  "min-h-[var(--spacing-tap)] w-full rounded-[var(--radius-btn)] border border-[var(--color-border)] bg-[var(--color-slate-100)] px-3.5 text-[length:var(--text-label)] text-[var(--color-text)] flex items-center"
 
 export function Select({
   className,

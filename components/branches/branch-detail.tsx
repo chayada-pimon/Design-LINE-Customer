@@ -3,14 +3,12 @@ import { Building2, Calendar, FileText, MapPin, Phone } from "lucide-react"
 import type { ReactNode } from "react"
 
 import type { Branch } from "@/components/branches/branch-data"
+import { Tag } from "@/components/ui/tag"
 
 function InfoValue({ value }: { value?: string }) {
   if (!value) {
     return (
-      <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[var(--color-warning-soft)] px-2 py-0.5 text-[length:var(--text-caption)] font-semibold text-[var(--color-warning)]">
-        <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-current" />
-        ยังไม่ได้ระบุ
-      </span>
+      <Tag className="bg-[var(--color-warning-soft)] text-[var(--color-warning)]">รอระบุข้อมูล</Tag>
     )
   }
 
@@ -48,7 +46,7 @@ function SectionCard({
 function Row({ icon, label, value }: { icon: ReactNode; label: string; value?: string }) {
   return (
     <div className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
-      <span className="flex items-center gap-2 text-[length:var(--text-caption)] text-[var(--color-text-muted)]">
+      <span className="flex items-center gap-2 text-[length:var(--text-label)] text-[var(--color-text-muted)]">
         <span aria-hidden="true" className="text-[var(--color-text-subtle)]">
           {icon}
         </span>
@@ -62,7 +60,7 @@ function Row({ icon, label, value }: { icon: ReactNode; label: string; value?: s
 function StackedRow({ icon, label, value }: { icon: ReactNode; label: string; value?: string }) {
   return (
     <div className="space-y-1 py-3 first:pt-0 last:pb-0">
-      <span className="flex items-center gap-2 text-[length:var(--text-caption)] text-[var(--color-text-muted)]">
+      <span className="flex items-center gap-2 text-[length:var(--text-label)] text-[var(--color-text-muted)]">
         <span aria-hidden="true" className="text-[var(--color-text-subtle)]">
           {icon}
         </span>
@@ -84,7 +82,7 @@ export function BranchDetail({ branch }: { branch: Branch }) {
           <p className="truncate text-[length:var(--text-lg)] font-bold text-[var(--color-text)]">
             {branch.name}
           </p>
-          <span className="mt-1.5 inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-[length:var(--text-caption)] font-bold text-[var(--color-brand-header)]">
+          <span className="mt-1.5 inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-[length:var(--text-h2)] font-bold text-[var(--color-brand-header)]">
             รหัส {branch.code}
           </span>
         </div>

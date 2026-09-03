@@ -1,13 +1,20 @@
 "use client"
 
-import { Copy, Pencil, UserRound } from "lucide-react"
+import { Check, Copy, Pencil } from "lucide-react"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
-const employee = {
+import { SharkIcon } from "@/components/home/shark-icon"
+import { loadProfile } from "@/lib/profile-storage"
+
+const DEFAULT_EMPLOYEE = {
   id: "U63612e8f9c1a4b2d8e6f0a1b2c3ddb65",
-  name: "โยธากานต์ พานภูมิ",
+  name: "สมชาย ใจดี",
   occupation: "",
 }
+
+// ฟิลด์ที่นับเป็น "ข้อมูลสำคัญของโปรไฟล์" — ต้องกรอกครบทุกตัวถึงจะถือว่าโปรไฟล์สมบูรณ์
+const REQUIRED_PROFILE_FIELDS: (keyof typeof DEFAULT_EMPLOYEE)[] = ["occupation"]
 
 function truncateId(id: string) {
   if (id.length <= 12) return id
@@ -15,6 +22,34 @@ function truncateId(id: string) {
 }
 
 export function ProfileCard() {
+  const [employee, setEmployee] = useState(DEFAULT_EMPLOYEE)
+  const [isIdCopied, setIsIdCopied] = useState(false)
+
+  useEffect(() => {
+    const stored = loadProfile()
+    if (!stored) return
+
+    setEmployee((previous) => ({
+      ...previous,
+      occupation:
+        stored.personalInfo.occupation === "อื่นๆ"
+          ? stored.personalInfo.occupationOther
+          : stored.personalInfo.occupation,
+    }))
+  }, [])
+
+  const isProfileIncomplete = REQUIRED_PROFILE_FIELDS.some((field) => !employee[field]?.trim())
+
+  const handleCopyId = async () => {
+    try {
+      await navigator.clipboard.writeText(employee.id)
+      setIsIdCopied(true)
+      setTimeout(() => setIsIdCopied(false), 1500)
+    } catch {
+      // clipboard access unavailable; ignore
+    }
+  }
+
   return (
     <section
       aria-label="ข้อมูลผู้ใช้งาน"
@@ -70,49 +105,43 @@ export function ProfileCard() {
         <circle cx="90%" cy="65%" opacity="0.35" r="1.5" />
         <circle cx="18%" cy="80%" opacity="0.35" r="1.5" />
       </svg>
-      <div className="relative mt-4 ml-6 flex items-start gap-3 text-left">
+      <div className="relative flex h-full translate-y-4 items-center justify-center gap-3 text-left">
         <span
           aria-label={`รูปโปรไฟล์ของ ${employee.name}`}
           className="grid size-20 shrink-0 place-items-center rounded-full bg-white p-[2px] shadow-[var(--shadow-card)] sm:size-24"
           role="img"
         >
-          <span className="grid size-full place-items-center rounded-full bg-white text-blue-600">
-            <UserRound aria-hidden="true" className="size-10 sm:size-12" strokeWidth={1.5} />
+          <span className="grid size-full place-items-center overflow-hidden rounded-full bg-white text-blue-300">
+            <SharkIcon aria-hidden="true" className="size-full" preserveAspectRatio="xMidYMid meet" />
           </span>
         </span>
-        <div className="min-w-0">
-          <p className="truncate text-[length:var(--text-lg)] font-extrabold text-[var(--color-text)]">
+        <div className="min-w-0 space-y-1.5">
+          <p className="truncate text-[length:var(--text-lg)] leading-[var(--text-lg--line-height)] font-bold text-[var(--color-text)]">
             {employee.name}
           </p>
           <button
-            className="mt-0.5 inline-flex w-fit origin-left scale-75 items-center gap-1 text-[10px] leading-4 font-medium text-[var(--color-text-muted)] outline-none"
-            onClick={() => navigator.clipboard.writeText(employee.id)}
+            aria-label="คัดลอกรหัสผู้ใช้งาน"
+            className="flex items-center gap-1 text-xs leading-tight font-normal text-[var(--color-text-muted)] outline-none"
+            onClick={handleCopyId}
             type="button"
           >
-            รหัส {truncateId(employee.id)}
-            <Copy aria-hidden="true" className="size-2.5" />
+            <span>รหัส {truncateId(employee.id)}</span>
+            {isIdCopied ? (
+              <Check aria-hidden="true" className="size-3 text-green-600" />
+            ) : (
+              <Copy aria-hidden="true" className="size-3" />
+            )}
           </button>
-          <div className="mt-0.5 flex flex-nowrap items-center gap-2">
+          <div className="flex flex-nowrap items-center gap-2">
             <Link
-              className="flex min-h-[var(--spacing-tap)] w-fit items-center gap-1.5 text-[length:var(--text-label)] font-semibold text-blue-600 outline-none"
+              className={`inline-flex w-fit items-center gap-1 text-[length:var(--text-label)] font-semibold outline-none ${
+                isProfileIncomplete ? "text-[var(--color-warning)]" : "text-blue-600"
+              }`}
               href="/profile/edit"
             >
-              <Pencil aria-hidden="true" className="size-4" />
-              แก้ไขโปรไฟล์
+              <Pencil aria-hidden="true" className="size-3" />
+              {isProfileIncomplete ? "กรุณากรอกข้อมูลให้ครบ" : "แก้ไขโปรไฟล์"}
             </Link>
-            {employee.occupation ? (
-              <span className="inline-flex w-fit items-center rounded-full bg-[var(--color-surface-sunken)] px-2.5 py-1 text-[length:var(--text-caption)] font-bold text-[var(--color-text-muted)]">
-                {employee.occupation}
-              </span>
-            ) : (
-              <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full bg-[var(--color-warning-soft)] px-2.5 py-1 text-[length:var(--text-caption)] font-bold text-[var(--color-warning)]">
-                <span
-                  aria-hidden="true"
-                  className="size-1.5 shrink-0 rounded-full bg-current"
-                />
-                ยังไม่ได้ระบุ
-              </span>
-            )}
           </div>
         </div>
       </div>
@@ -128,7 +157,7 @@ export function ProfileCardSkeleton() {
     >
       <span className="size-16 shrink-0 animate-pulse rounded-full bg-slate-200" />
       <div className="min-w-0 flex-1 space-y-2.5">
-        <span className="block h-5 w-40 animate-pulse rounded-full bg-slate-200" />
+        <span className="block h-6 w-40 animate-pulse rounded-full bg-slate-200" />
         <span className="block h-3 w-32 animate-pulse rounded-full bg-slate-100" />
         <span className="block h-3 w-28 animate-pulse rounded-full bg-slate-100" />
       </div>

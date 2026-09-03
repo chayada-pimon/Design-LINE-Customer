@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 import { EMPTY_ADDRESS, type AddressData } from "@/components/profile/address-fields"
 import {
@@ -9,6 +10,7 @@ import {
 } from "@/components/profile/personal-info-section"
 import { ShippingAddressSection } from "@/components/profile/shipping-address-section"
 import { TaxInvoiceAddressSection } from "@/components/profile/tax-invoice-address-section"
+import { loadProfile, saveProfile } from "@/lib/profile-storage"
 
 const INITIAL_PERSONAL_INFO: PersonalInfoData = {
   fullName: "สมชาย ใจดี",
@@ -25,13 +27,28 @@ const INITIAL_PERSONAL_INFO: PersonalInfoData = {
 }
 
 export function ProfileEditForm() {
+  const router = useRouter()
   const [personalInfo, setPersonalInfo] = useState<PersonalInfoData>(INITIAL_PERSONAL_INFO)
   const [shippingAddress, setShippingAddress] = useState<AddressData>(EMPTY_ADDRESS)
   const [taxSameAsShipping, setTaxSameAsShipping] = useState(true)
   const [taxAddress, setTaxAddress] = useState<AddressData>(EMPTY_ADDRESS)
 
+  useEffect(() => {
+    const stored = loadProfile()
+    if (!stored) return
+
+    setPersonalInfo(stored.personalInfo)
+    setShippingAddress(stored.shippingAddress)
+    setTaxAddress(stored.taxAddress)
+    setTaxSameAsShipping(stored.taxSameAsShipping)
+  }, [])
+
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
+
+    saveProfile({ personalInfo, shippingAddress, taxAddress, taxSameAsShipping })
+
+    router.push("/profile")
   }
 
   return (

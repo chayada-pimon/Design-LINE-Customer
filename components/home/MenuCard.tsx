@@ -2,6 +2,8 @@ import { ChevronRight, type LucideIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
+import { Tag } from "@/components/ui/tag"
+
 type MenuCardProps = {
   href: string
   icon: LucideIcon
@@ -44,23 +46,18 @@ export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default
         <Icon aria-hidden="true" className="size-5" strokeWidth={1.75} />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-[length:var(--text-label)] font-bold text-[var(--color-text)]">
+        <span className="block text-[length:var(--text-base)] font-bold text-[var(--color-text)]">
           {title}
         </span>
         <span className="mt-0.5 flex min-w-0 items-center gap-2">
-          <span className="truncate text-[length:var(--text-caption)] text-slate-500">
+          <span className="truncate text-[length:var(--text-label)] text-[var(--color-text-muted)]">
             {subtitle}
           </span>
-          {badge ? (
-            <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[var(--color-warning-soft)] px-2 py-0.5 text-[length:var(--text-caption)] font-semibold text-[var(--color-warning)]">
-              <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-current" />
-              {badge}
-            </span>
-          ) : null}
+          {badge ? <Tag className="bg-white text-[var(--color-warning)] shadow-sm">{badge}</Tag> : null}
         </span>
       </span>
       {isHero ? <BranchIllustration /> : null}
-      <ChevronRight aria-hidden="true" className="size-5 shrink-0 text-slate-300" />
+      <ChevronRight aria-hidden="true" className="size-5 shrink-0 text-[var(--color-text-subtle)]" />
     </Link>
   )
 }

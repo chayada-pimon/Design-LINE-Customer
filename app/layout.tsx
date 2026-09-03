@@ -1,6 +1,6 @@
 import type { Viewport } from "next"
-import Script from "next/script"
 import { Noto_Sans_Thai } from "next/font/google"
+import Script from "next/script"
 
 import "./globals.css"
 
@@ -29,16 +29,16 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${fontThai.variable} font-sans antialiased`}
     >
-      <head>
+      <body>
         {process.env.NODE_ENV === "development" && (
           <Script
             src="//unpkg.com/react-grab/dist/index.global.js"
             crossOrigin="anonymous"
-            strategy="beforeInteractive"
+            strategy="afterInteractive"
           />
         )}
-      </head>
-      <body>{children}</body>
+        {children}
+      </body>
     </html>
   )
 }

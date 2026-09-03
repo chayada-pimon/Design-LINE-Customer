@@ -100,7 +100,7 @@ export function ReceiptMonthFilter({
         type="button"
       >
         <Calendar aria-hidden="true" className="size-4 shrink-0 text-[var(--color-brand-header)]" />
-        <span className="min-w-0 truncate text-[length:var(--text-caption)] font-bold text-[var(--color-text)]">
+        <span className="min-w-0 truncate text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
           {label}
         </span>
         <ChevronDown aria-hidden="true" className="size-4 shrink-0 text-[var(--color-text-subtle)]" />
@@ -143,7 +143,7 @@ export function ReceiptMonthFilter({
                 ].map((chip) => (
                   <button
                     aria-pressed={value === chip.key}
-                    className={`rounded-full border px-3.5 py-1.5 text-[length:var(--text-caption)] font-bold transition-colors ${
+                    className={`rounded-full border px-3.5 py-1.5 text-[length:var(--text-h2)] font-bold transition-colors ${
                       value === chip.key
                         ? "border-[var(--color-brand-header)] bg-blue-50 text-[var(--color-brand-header)]"
                         : "border-[var(--color-border-strong)] text-[var(--color-text)] active:bg-[var(--color-surface-sunken)]"
@@ -162,7 +162,7 @@ export function ReceiptMonthFilter({
               {groupedMonths.map((group) => (
                 <li key={group.year}>
                   {showYearHeaders ? (
-                    <p className="px-2.5 pb-1.5 pt-3 text-[length:var(--text-caption)] font-bold text-[var(--color-text-subtle)] first:pt-1">
+                    <p className="px-2.5 pb-1.5 pt-3 text-[length:var(--text-h2)] font-bold text-[var(--color-text-subtle)] first:pt-1">
                       ปี {formatThaiYear(group.year)}
                     </p>
                   ) : null}

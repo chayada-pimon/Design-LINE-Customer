@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Building2, ChevronRight, FileText, Inbox } from "lucide-react"
+import { ChevronRight, FileText, Inbox } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
 
 import {
@@ -17,11 +17,31 @@ import { ALL_BRANCHES, InvoiceBranchFilter } from "@/components/invoices/invoice
 import { InvoiceStatusBadge } from "@/components/invoices/invoice-status-badge"
 import { InvoiceSummaryBar } from "@/components/invoices/invoice-summary-bar"
 
-const TABS: { key: "all" | InvoiceStatus; label: string }[] = [
-  { key: "all", label: "ทั้งหมด" },
-  { key: "pending", label: "รอชำระ" },
-  { key: "paid", label: "ชำระแล้ว" },
-  { key: "overdue", label: "เกินกำหนด" },
+const TABS: { key: "all" | InvoiceStatus; label: string; selectedClasses: string; unselectedClasses: string }[] = [
+  {
+    key: "all",
+    label: "ทั้งหมด",
+    selectedClasses: "border-[var(--color-brand-header)] bg-[var(--color-brand-header)] text-[var(--color-surface)]",
+    unselectedClasses: "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-muted)]",
+  },
+  {
+    key: "pending",
+    label: "รอชำระ",
+    selectedClasses: "border-[var(--color-warning)] bg-[var(--color-warning)] text-[var(--color-surface)]",
+    unselectedClasses: "border-amber-200 bg-amber-50 text-amber-700",
+  },
+  {
+    key: "paid",
+    label: "ชำระแล้ว",
+    selectedClasses: "border-[var(--color-success)] bg-[var(--color-success)] text-[var(--color-surface)]",
+    unselectedClasses: "border-[var(--color-success-soft)] bg-[var(--color-success-soft)] text-[var(--color-success)]",
+  },
+  {
+    key: "overdue",
+    label: "เกินกำหนด",
+    selectedClasses: "border-[var(--color-danger)] bg-[var(--color-danger)] text-[var(--color-surface)]",
+    unselectedClasses: "border-[var(--color-danger-soft)] bg-[var(--color-danger-soft)] text-[var(--color-danger)]",
+  },
 ]
 
 function InvoiceListSkeleton() {
@@ -84,10 +104,8 @@ export function InvoiceList() {
             <button
               key={tab.key}
               aria-selected={selected}
-              className={`shrink-0 rounded-full px-3.5 py-1.5 text-[length:var(--text-caption)] font-bold outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
-                selected
-                  ? "bg-[var(--color-brand-header)] text-[var(--color-surface)]"
-                  : "border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-muted)]"
+              className={`shrink-0 rounded-full border px-3.5 py-1.5 text-[length:var(--text-h2)] font-bold outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
+                selected ? tab.selectedClasses : tab.unselectedClasses
               }`}
               onClick={() => setActiveTab(tab.key)}
               role="tab"
@@ -125,29 +143,30 @@ export function InvoiceList() {
                     </span>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-2">
-                        <p className="truncate text-[length:var(--text-label)] font-bold text-[var(--color-text)]">
-                          {invoice.number}
+                        <p className="flex min-w-0 items-center gap-1 truncate text-[length:var(--text-label)] font-bold text-[var(--color-text)]">
+                          <span className="truncate">{getBranchLabel(invoice.branchId)}</span>
                         </p>
-                        <ChevronRight
-                          aria-hidden="true"
-                          className="size-5 shrink-0 text-[var(--color-text-subtle)]"
-                        />
+                        <span className="shrink-0">
+                          <InvoiceStatusBadge status={invoice.status} />
+                        </span>
                       </div>
-                      <p className="mt-1 text-[length:var(--text-caption)] text-[var(--color-text-muted)]">
-                        ออก {formatThaiDate(invoice.issueDate)} · ครบกำหนด {formatThaiDate(invoice.dueDate)}
+                      <p className="mt-1 text-[length:var(--text-h2)] text-[var(--color-text-muted)]">
+                        {invoice.number}
                       </p>
-                      <p className="mt-1 flex items-center gap-1 text-[length:var(--text-caption)] text-[var(--color-text-subtle)]">
-                        <Building2 aria-hidden="true" className="size-3.5 shrink-0" />
-                        {getBranchLabel(invoice.branchId)}
+                      <p className="mt-1 text-[length:var(--text-h2)] text-[var(--color-text-muted)]">
+                        ออก {formatThaiDate(invoice.issueDate)} · ครบกำหนด {formatThaiDate(invoice.dueDate)}
                       </p>
                     </div>
                   </div>
 
                   <div className="mt-3 flex items-center justify-between border-t border-[var(--color-border)] pt-3">
-                    <p className="text-[length:var(--text-lg)] font-bold text-[var(--color-text)]">
+                    <p className="text-[length:var(--text-base)] font-bold text-[var(--color-text)]">
                       {formatCurrency(netTotal)} <span className="text-[length:var(--text-caption)] font-normal text-[var(--color-text-muted)]">บาท</span>
                     </p>
-                    <InvoiceStatusBadge status={invoice.status} />
+                    <ChevronRight
+                      aria-hidden="true"
+                      className="size-5 shrink-0 text-[var(--color-text-subtle)]"
+                    />
                   </div>
                 </Link>
               </li>
