@@ -19,14 +19,14 @@ export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default
     <Link
       className={`interactive-card flex w-full items-center gap-3 rounded-2xl px-4 outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
         isHero
-          ? "border border-blue-300 bg-blue-50/60 py-3 shadow-[var(--shadow-card)] active:bg-blue-100/60"
+          ? "border border-blue-200 bg-blue-50 py-4 shadow-[var(--shadow-card)] active:bg-blue-100"
           : "py-4 bg-[var(--color-surface)] shadow-[var(--shadow-card)] active:bg-[var(--color-surface-sunken)]"
       }`}
       href={href}
     >
       <span
         className={`grid shrink-0 place-items-center rounded-full text-[var(--color-action)] ${
-          isHero ? "size-10 bg-white shadow-[var(--shadow-card)]" : "size-11 bg-blue-50"
+          isHero ? "size-11 bg-white shadow-[var(--shadow-card)]" : "size-11 bg-blue-50"
         }`}
       >
         <Icon aria-hidden="true" className="size-5" strokeWidth={1.75} />

@@ -17,50 +17,23 @@ import { ALL_BRANCHES, InvoiceBranchFilter } from "@/components/invoices/invoice
 import { InvoiceStatusBadge } from "@/components/invoices/invoice-status-badge"
 import { InvoiceSummaryBar } from "@/components/invoices/invoice-summary-bar"
 
-const TABS: {
-  key: "all" | InvoiceStatus
-  label: string
-  dotClasses: string
-  selectedClasses: string
-  unselectedClasses: string
-}[] = [
-  {
-    key: "all",
-    label: "ทั้งหมด",
-    dotClasses: "bg-[var(--color-brand-header)]",
-    selectedClasses: "border-[var(--color-brand-header)] bg-[var(--color-brand-header)] text-[var(--color-surface)] shadow-sm",
-    unselectedClasses: "border-transparent bg-[var(--color-surface)] text-[var(--color-text-muted)] hover:bg-[var(--color-surface-sunken)]",
-  },
-  {
-    key: "pending",
-    label: "รอชำระ",
-    dotClasses: "bg-amber-500",
-    selectedClasses: "border-[var(--color-warning)] bg-[var(--color-warning)] text-[var(--color-surface)] shadow-sm",
-    unselectedClasses: "border-transparent bg-[var(--color-surface)] text-amber-700 hover:bg-amber-50",
-  },
-  {
-    key: "paid",
-    label: "ชำระแล้ว",
-    dotClasses: "bg-[var(--color-success)]",
-    selectedClasses: "border-[var(--color-success)] bg-[var(--color-success)] text-[var(--color-surface)] shadow-sm",
-    unselectedClasses: "border-transparent bg-[var(--color-surface)] text-[var(--color-success)] hover:bg-[var(--color-success-soft)]",
-  },
-  {
-    key: "overdue",
-    label: "เกินกำหนด",
-    dotClasses: "bg-[var(--color-danger)]",
-    selectedClasses: "border-[var(--color-danger)] bg-[var(--color-danger)] text-[var(--color-surface)] shadow-sm",
-    unselectedClasses: "border-transparent bg-[var(--color-surface)] text-[var(--color-danger)] hover:bg-[var(--color-danger-soft)]",
-  },
+const TABS: { key: "all" | InvoiceStatus; label: string }[] = [
+  { key: "all", label: "ทั้งหมด" },
+  { key: "pending", label: "รอชำระ" },
+  { key: "paid", label: "ชำระแล้ว" },
+  { key: "overdue", label: "เกินกำหนด" },
 ]
+
+const TAB_SELECTED_CLASSES = "border-[var(--color-brand-header)] text-[var(--color-brand-header)]"
+const TAB_UNSELECTED_CLASSES = "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-brand-header)]/40"
 
 function InvoiceListSkeleton() {
   return (
     <div aria-hidden="true" className="space-y-3">
       <div className="h-24 animate-pulse rounded-[var(--radius-card)] bg-[var(--color-surface-sunken)]" />
-      <div className="flex gap-1.5 rounded-full bg-[var(--color-surface-sunken)] p-1">
+      <div className="flex flex-wrap gap-2">
         {TABS.map((tab) => (
-          <div key={tab.key} className="h-8 w-16 animate-pulse rounded-full bg-[var(--color-border)]" />
+          <div key={tab.key} className="h-7 w-16 animate-pulse rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]" />
         ))}
       </div>
       {[0, 1, 2].map((index) => (
@@ -107,33 +80,21 @@ export function InvoiceList() {
         <InvoiceBranchFilter branches={invoiceBranches} onChange={setBranchId} value={branchId} />
       ) : null}
 
-      <div
-        className="flex gap-1.5 overflow-x-auto rounded-full bg-[var(--color-surface-sunken)] p-1"
-        role="tablist"
-      >
+      <div className="flex flex-wrap gap-2" role="tablist">
         {TABS.map((tab) => {
           const selected = activeTab === tab.key
-          const count = tab.key === "all" ? branchFiltered.length : branchFiltered.filter((invoice) => invoice.status === tab.key).length
           return (
             <button
               key={tab.key}
               aria-selected={selected}
-              className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[length:var(--text-h2)] font-bold outline-none transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
-                selected ? tab.selectedClasses : tab.unselectedClasses
+              className={`shrink-0 rounded-full border-2 bg-[var(--color-surface)] px-3.5 py-1.5 text-[length:var(--text-caption)] font-semibold outline-none transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
+                selected ? TAB_SELECTED_CLASSES : TAB_UNSELECTED_CLASSES
               }`}
               onClick={() => setActiveTab(tab.key)}
               role="tab"
               type="button"
             >
-              {!selected ? <span aria-hidden="true" className={`size-1.5 rounded-full ${tab.dotClasses}`} /> : null}
               {tab.label}
-              <span
-                className={`rounded-full px-1.5 py-0.5 text-[length:var(--text-caption)] font-semibold leading-none ${
-                  selected ? "bg-white/20" : "bg-[var(--color-surface-sunken)]"
-                }`}
-              >
-                {count}
-              </span>
             </button>
           )
         })}
