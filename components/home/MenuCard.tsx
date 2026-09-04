@@ -20,27 +20,27 @@ export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default
     <Link
       className={`interactive-card flex w-full items-center gap-3 rounded-2xl px-4 outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
         isHero
-          ? "border border-blue-200 bg-blue-50 py-4 shadow-[var(--shadow-card)] active:bg-blue-100"
-          : "border border-gray-300 py-4 bg-[var(--color-surface)] shadow-[var(--shadow-card)] active:bg-[var(--color-surface-sunken)]"
+          ? "border border-gray-300 bg-blue-50 py-4 shadow-[var(--shadow-card)] active:bg-blue-100"
+          : "border border-gray-300 py-4 bg-[var(--color-surface)] active:bg-[var(--color-surface-sunken)]"
       } ${className ?? ""}`}
       href={href}
     >
       <span
         className={`grid shrink-0 place-items-center rounded-full text-[var(--color-action)] ${
-          isHero ? "size-11 bg-white shadow-[var(--shadow-card)]" : "size-11 bg-blue-50"
+          isHero ? "size-11 bg-white" : "size-11 bg-blue-50"
         }`}
       >
         <Icon aria-hidden="true" className="size-5" strokeWidth={1.75} />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[length:var(--text-base)] font-bold text-[var(--color-text)]">
-          {title}
-        </span>
-        <span className="mt-0.5 flex min-w-0 items-center gap-2">
-          <span className="truncate text-[length:var(--text-label)] text-[var(--color-text-muted)]">
-            {subtitle}
+        <span className="flex min-w-0 items-center gap-2">
+          <span className="truncate text-[length:var(--text-base)] font-bold text-[var(--color-text)]">
+            {title}
           </span>
-          {badge ? <Tag className="bg-white text-[var(--color-warning)] shadow-sm">{badge}</Tag> : null}
+          {badge ? <Tag className="bg-[var(--color-warning-soft)] text-[var(--color-warning)]">{badge}</Tag> : null}
+        </span>
+        <span className="mt-0.5 block truncate text-[length:var(--text-label)] text-[var(--color-text-muted)]">
+          {subtitle}
         </span>
       </span>
       <ChevronRight aria-hidden="true" className="size-5 shrink-0 text-[var(--color-text-subtle)]" />

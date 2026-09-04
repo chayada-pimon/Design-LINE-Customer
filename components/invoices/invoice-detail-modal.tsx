@@ -27,6 +27,14 @@ export function InvoiceDetailModal({
     return () => document.removeEventListener("keydown", handleKeyDown)
   }, [])
 
+  useEffect(() => {
+    const { overflow } = document.body.style
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = overflow
+    }
+  }, [])
+
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center" role="presentation">
       <button

@@ -19,6 +19,7 @@ const menuItems: MenuItem[] = [
     subtitle: `${branches.length} สาขา`,
     icon: MapPin,
     variant: "hero",
+    badge: "รอระบุข้อมูล",
   },
   {
     href: "/invoices",
