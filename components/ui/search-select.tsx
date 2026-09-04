@@ -31,6 +31,11 @@ function normalizeOptions(options: readonly SearchSelectOption[] | readonly stri
   return options.map((option) => (typeof option === "string" ? { value: option, label: option } : option))
 }
 
+// Older iOS Safari (pre-15.4) doesn't understand the `dvh` unit and drops the
+// declaration entirely, leaving the sheet with no height cap on small screens.
+const supportsDvh =
+  typeof CSS !== "undefined" && typeof CSS.supports === "function" && CSS.supports("height", "1dvh")
+
 export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(function SearchSelect(
   { id, value, options, onChange, placeholder, searchPlaceholder = "ค้นหา", emptyLabel = "ไม่พบข้อมูล", disabled, onSelected },
   ref,
@@ -125,14 +130,26 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
   useEffect(() => {
     if (!open) return
     const viewport = window.visualViewport
-    if (!viewport) return
-    const updateRect = () => setViewportRect({ top: viewport.offsetTop, height: viewport.height })
+    if (viewport) {
+      const updateRect = () => setViewportRect({ top: viewport.offsetTop, height: viewport.height })
+      updateRect()
+      viewport.addEventListener("resize", updateRect)
+      viewport.addEventListener("scroll", updateRect)
+      return () => {
+        viewport.removeEventListener("resize", updateRect)
+        viewport.removeEventListener("scroll", updateRect)
+      }
+    }
+    // Fallback for old iOS Safari, which lacks the visualViewport API: use
+    // window.innerHeight so the sheet still gets an explicit height instead
+    // of depending on vh/dvh units that misbehave with the on-screen chrome.
+    const updateRect = () => setViewportRect({ top: 0, height: window.innerHeight })
     updateRect()
-    viewport.addEventListener("resize", updateRect)
-    viewport.addEventListener("scroll", updateRect)
+    window.addEventListener("resize", updateRect)
+    window.addEventListener("orientationchange", updateRect)
     return () => {
-      viewport.removeEventListener("resize", updateRect)
-      viewport.removeEventListener("scroll", updateRect)
+      window.removeEventListener("resize", updateRect)
+      window.removeEventListener("orientationchange", updateRect)
     }
   }, [open])
 
@@ -171,7 +188,7 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
             className={`relative flex max-h-[95%] w-full flex-col overflow-hidden rounded-t-2xl bg-[var(--color-surface)] text-[var(--color-text)] shadow-[var(--shadow-card)] sm:my-8 sm:max-w-lg sm:rounded-2xl ${
               closing ? "sheet-closing" : "sheet-opening"
             }`}
-            style={!viewportRect ? { maxHeight: "95dvh" } : undefined}
+            style={!viewportRect ? { maxHeight: supportsDvh ? "95dvh" : "95vh" } : undefined}
             onAnimationEnd={() => {
               if (closing) finishClosing()
             }}
