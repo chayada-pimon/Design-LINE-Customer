@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { ChevronRight, FileText, Inbox } from "lucide-react"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 import {
   formatCurrency,
@@ -16,6 +16,8 @@ import {
 import { ALL_BRANCHES, InvoiceBranchFilter } from "@/components/invoices/invoice-branch-filter"
 import { InvoiceStatusBadge } from "@/components/invoices/invoice-status-badge"
 import { InvoiceSummaryBar } from "@/components/invoices/invoice-summary-bar"
+
+type TabKey = "all" | InvoiceStatus | "unpaid"
 
 const TABS: { key: "all" | InvoiceStatus; label: string }[] = [
   { key: "all", label: "ทั้งหมด" },
@@ -48,8 +50,14 @@ function InvoiceListSkeleton() {
 
 export function InvoiceList() {
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<"all" | InvoiceStatus>("all")
+  const [activeTab, setActiveTab] = useState<TabKey>("all")
   const [branchId, setBranchId] = useState<string>(ALL_BRANCHES)
+  const filterSectionRef = useRef<HTMLDivElement>(null)
+
+  const handleViewUnpaid = () => {
+    setActiveTab("unpaid")
+    filterSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 600)
@@ -65,6 +73,7 @@ export function InvoiceList() {
 
   const filtered = useMemo(() => {
     if (activeTab === "all") return branchFiltered
+    if (activeTab === "unpaid") return branchFiltered.filter((invoice) => invoice.status !== "paid")
     return branchFiltered.filter((invoice) => invoice.status === activeTab)
   }, [branchFiltered, activeTab])
 
@@ -74,20 +83,20 @@ export function InvoiceList() {
 
   return (
     <div className="space-y-4">
-      <InvoiceSummaryBar invoices={branchFiltered} />
+      <InvoiceSummaryBar invoices={branchFiltered} onViewUnpaid={handleViewUnpaid} />
 
       {invoiceBranches.length > 1 ? (
         <InvoiceBranchFilter branches={invoiceBranches} onChange={setBranchId} value={branchId} />
       ) : null}
 
-      <div className="flex flex-wrap gap-2" role="tablist">
+      <div ref={filterSectionRef} className="flex gap-1.5 scroll-mt-4" role="tablist">
         {TABS.map((tab) => {
           const selected = activeTab === tab.key
           return (
             <button
               key={tab.key}
               aria-selected={selected}
-              className={`shrink-0 rounded-full border-2 bg-[var(--color-surface)] px-3.5 py-1.5 text-[length:var(--text-caption)] font-semibold outline-none transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
+              className={`flex-1 whitespace-nowrap rounded-full border-2 bg-[var(--color-surface)] px-2 py-1.5 text-center text-[length:var(--text-caption)] font-semibold outline-none transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
                 selected ? TAB_SELECTED_CLASSES : TAB_UNSELECTED_CLASSES
               }`}
               onClick={() => setActiveTab(tab.key)}
@@ -146,10 +155,10 @@ export function InvoiceList() {
                     <p className="text-[length:var(--text-base)] font-bold text-[var(--color-text)]">
                       {formatCurrency(netTotal)} <span className="text-[length:var(--text-caption)] font-normal text-[var(--color-text-muted)]">บาท</span>
                     </p>
-                    <ChevronRight
-                      aria-hidden="true"
-                      className="size-5 shrink-0 text-[var(--color-text-subtle)]"
-                    />
+                    <span className="flex items-center gap-1 text-[length:var(--text-caption)] text-[var(--color-text-subtle)]">
+                      ดูรายละเอียด
+                      <ChevronRight aria-hidden="true" className="size-5 shrink-0" />
+                    </span>
                   </div>
                 </Link>
               </li>

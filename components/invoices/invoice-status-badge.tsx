@@ -3,7 +3,7 @@ import { INVOICE_STATUS_LABEL, type InvoiceStatus } from "@/components/invoices/
 
 const STATUS_CLASSES: Record<InvoiceStatus, string> = {
   paid: "bg-[var(--color-success-soft)] text-[var(--color-success)]",
-  pending: "bg-amber-100 text-amber-700",
+  pending: "bg-[var(--color-warning-soft)] text-[var(--color-warning)]",
   overdue: "bg-[var(--color-danger-soft)] text-[var(--color-danger)]",
 }
 

@@ -3,9 +3,8 @@
 import { useMemo, useState } from "react"
 
 import { AnnouncementCard } from "@/components/home/AnnouncementCard"
-import { HomeHeader } from "@/components/home/home-header"
+import { Header } from "@/components/home/Header"
 import { HomeLayout } from "@/components/home/home-layout"
-import { PageHeading } from "@/components/home/page-heading"
 import { documents } from "@/components/documents/document-data"
 import { ALL_DATES, DocumentDateFilter } from "@/components/documents/document-date-filter"
 import { DocumentList } from "@/components/documents/document-list"
@@ -16,8 +15,7 @@ export default function DocumentsPage() {
 
   return (
     <HomeLayout>
-      <HomeHeader backHref="/" />
-      <PageHeading>เอกสาร</PageHeading>
+      <Header backHref="/" showProfileCard={false} title="เอกสาร" />
       <section className="px-4 pt-5">
         <div className="mb-4">
           <AnnouncementCard

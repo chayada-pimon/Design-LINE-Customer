@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { ChevronRight, Inbox, Receipt as ReceiptIcon } from "lucide-react"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 import {
   formatCurrency,
@@ -32,6 +32,12 @@ function ReceiptListSkeleton() {
 export function ReceiptList() {
   const [loading, setLoading] = useState(true)
   const [monthKey, setMonthKey] = useState<string>(ALL_MONTHS)
+  const filterSectionRef = useRef<HTMLDivElement>(null)
+
+  const handleViewAll = () => {
+    setMonthKey(ALL_MONTHS)
+    filterSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 600)
@@ -59,10 +65,12 @@ export function ReceiptList() {
 
   return (
     <div className="space-y-4">
-      <ReceiptSummaryBar receipts={filtered} />
+      <ReceiptSummaryBar receipts={filtered} onViewAll={months.length > 1 ? handleViewAll : undefined} />
 
       {months.length > 1 ? (
-        <ReceiptMonthFilter months={months} onChange={setMonthKey} value={monthKey} />
+        <div className="scroll-mt-4" ref={filterSectionRef}>
+          <ReceiptMonthFilter months={months} onChange={setMonthKey} value={monthKey} />
+        </div>
       ) : null}
 
       {sorted.length === 0 ? (
@@ -107,10 +115,10 @@ export function ReceiptList() {
                     <p className="text-[length:var(--text-base)] font-bold text-[var(--color-text)]">
                       {formatCurrency(netTotal)} <span className="text-[length:var(--text-caption)] font-normal text-[var(--color-text-muted)]">บาท</span>
                     </p>
-                    <ChevronRight
-                      aria-hidden="true"
-                      className="size-5 shrink-0 text-[var(--color-text-subtle)]"
-                    />
+                    <span className="flex items-center gap-1 text-[length:var(--text-caption)] text-[var(--color-text-subtle)]">
+                      ดูรายละเอียด
+                      <ChevronRight aria-hidden="true" className="size-5 shrink-0" />
+                    </span>
                   </div>
                 </Link>
               </li>

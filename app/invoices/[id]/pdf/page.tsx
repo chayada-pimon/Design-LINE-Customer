@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation"
 import { FileWarning } from "lucide-react"
 
-import { HomeHeader } from "@/components/home/home-header"
+import { Header } from "@/components/home/Header"
 import { HomeLayout } from "@/components/home/home-layout"
-import { PageHeading } from "@/components/home/page-heading"
 import { getInvoiceById } from "@/components/invoices/invoice-data"
 
 export default async function InvoicePdfPage({
@@ -20,8 +19,7 @@ export default async function InvoicePdfPage({
 
   return (
     <HomeLayout>
-      <HomeHeader backHref={`/invoices/${invoice.id}`} />
-      <PageHeading>{invoice.number}</PageHeading>
+      <Header backHref={`/invoices/${invoice.id}`} showProfileCard={false} title={invoice.number} />
       <div className="px-4 pt-5 pb-8">
         {invoice.pdfUrl ? (
           <iframe

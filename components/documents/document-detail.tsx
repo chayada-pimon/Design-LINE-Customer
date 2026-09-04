@@ -4,6 +4,7 @@ import { Calendar, Check, CheckCircle2, FileText, Loader2, Paperclip } from "luc
 import { useEffect, useRef, useState } from "react"
 
 import {
+  CONFIRM_ACKNOWLEDGE_LABEL,
   CONFIRM_ACTION_LABEL,
   formatThaiDate,
   type CompanyDocument,
@@ -191,6 +192,11 @@ export function DocumentDetail({ document: initialDocument }: { document: Compan
           </div>
         ) : (
           <>
+            {hasRead ? (
+              <p className="text-center text-[length:var(--text-label)] text-[var(--color-text-muted)]">
+                {CONFIRM_ACKNOWLEDGE_LABEL[document.type]}
+              </p>
+            ) : null}
             <button
               className="primary-action flex min-h-[var(--spacing-tap)] w-full items-center justify-center gap-2 rounded-[var(--radius-btn)] border border-[var(--color-action)] bg-[var(--color-action)] text-[length:var(--text-label)] font-bold text-[var(--color-surface)] shadow-[var(--shadow-card)] outline-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
               disabled={!hasRead || buttonState === "submitting"}

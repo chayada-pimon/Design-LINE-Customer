@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation"
 
-import { HomeHeader } from "@/components/home/home-header"
+import { Header } from "@/components/home/Header"
 import { HomeLayout } from "@/components/home/home-layout"
-import { PageHeading } from "@/components/home/page-heading"
 import { InvoiceDetail } from "@/components/invoices/invoice-detail"
 import { getInvoiceById } from "@/components/invoices/invoice-data"
 
@@ -20,8 +19,7 @@ export default async function InvoiceDetailPage({
 
   return (
     <HomeLayout>
-      <HomeHeader backHref="/invoices" />
-      <PageHeading>รายละเอียดใบแจ้งหนี้</PageHeading>
+      <Header backHref="/invoices" showProfileCard={false} title="รายละเอียดใบแจ้งหนี้" />
       <InvoiceDetail invoice={invoice} />
     </HomeLayout>
   )

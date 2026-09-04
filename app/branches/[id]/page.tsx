@@ -2,9 +2,8 @@ import { notFound } from "next/navigation"
 
 import { BranchDetail } from "@/components/branches/branch-detail"
 import { getBranchById } from "@/components/branches/branch-data"
-import { HomeHeader } from "@/components/home/home-header"
+import { Header } from "@/components/home/Header"
 import { HomeLayout } from "@/components/home/home-layout"
-import { PageHeading } from "@/components/home/page-heading"
 
 export default async function BranchDetailPage({
   params,
@@ -20,8 +19,7 @@ export default async function BranchDetailPage({
 
   return (
     <HomeLayout>
-      <HomeHeader backHref="/branches" />
-      <PageHeading>รายละเอียดสาขา</PageHeading>
+      <Header backHref="/branches" showProfileCard={false} title="รายละเอียดสาขา" />
       <BranchDetail branch={branch} />
     </HomeLayout>
   )

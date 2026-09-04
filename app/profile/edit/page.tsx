@@ -1,13 +1,11 @@
-import { HomeHeader } from "@/components/home/home-header"
+import { Header } from "@/components/home/Header"
 import { HomeLayout } from "@/components/home/home-layout"
-import { PageHeading } from "@/components/home/page-heading"
 import { ProfileEditForm } from "@/components/profile/profile-edit-form"
 
 export default function ProfileEditPage() {
   return (
     <HomeLayout>
-      <HomeHeader backHref="/profile" showDrawer={false} />
-      <PageHeading>ข้อมูลของฉัน</PageHeading>
+      <Header backHref="/profile" showProfileCard={false} title="ข้อมูลของฉัน" />
       <ProfileEditForm />
     </HomeLayout>
   )

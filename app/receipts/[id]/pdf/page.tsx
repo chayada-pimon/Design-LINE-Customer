@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation"
 import { FileWarning } from "lucide-react"
 
-import { HomeHeader } from "@/components/home/home-header"
+import { Header } from "@/components/home/Header"
 import { HomeLayout } from "@/components/home/home-layout"
-import { PageHeading } from "@/components/home/page-heading"
 import { getReceiptById } from "@/components/receipts/receipt-data"
 
 export default async function ReceiptPdfPage({
@@ -20,8 +19,7 @@ export default async function ReceiptPdfPage({
 
   return (
     <HomeLayout>
-      <HomeHeader backHref={`/receipts/${receipt.id}`} />
-      <PageHeading>{receipt.number}</PageHeading>
+      <Header backHref={`/receipts/${receipt.id}`} showProfileCard={false} title={receipt.number} />
       <div className="px-4 pt-5 pb-8">
         {receipt.pdfUrl ? (
           <iframe

@@ -1,15 +1,33 @@
 import type { Viewport } from "next"
-import { Noto_Sans_Thai } from "next/font/google"
+import localFont from "next/font/local"
 import Script from "next/script"
 
 import "./globals.css"
 
-// TODO: swap back to the local LINESeedSansTH font once the .woff2 files
-// are added to public/fonts/ (see public/fonts/PLACE_FONT_FILES_HERE.txt)
-const fontThai = Noto_Sans_Thai({
+const fontThai = localFont({
   variable: "--font-thai",
-  subsets: ["thai", "latin"],
-  weight: ["100", "400", "700", "800"],
+  src: [
+    {
+      path: "../public/fonts/LINESeedSansTH_W_Th.woff2",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/LINESeedSansTH_W_Rg.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/LINESeedSansTH_W_Bd.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/LINESeedSansTH_W_XBd.woff2",
+      weight: "800",
+      style: "normal",
+    },
+  ],
 })
 
 export const viewport: Viewport = {

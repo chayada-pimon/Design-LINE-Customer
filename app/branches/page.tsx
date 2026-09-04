@@ -1,13 +1,11 @@
 import { BranchList } from "@/components/branches/branch-list"
-import { HomeHeader } from "@/components/home/home-header"
+import { Header } from "@/components/home/Header"
 import { HomeLayout } from "@/components/home/home-layout"
-import { PageHeading } from "@/components/home/page-heading"
 
 export default function BranchesPage() {
   return (
     <HomeLayout>
-      <HomeHeader backHref="/" />
-      <PageHeading>สาขาของคุณ</PageHeading>
+      <Header backHref="/" showProfileCard={false} title="สาขาของคุณ" />
       <section className="px-4 pt-5">
         <BranchList />
       </section>

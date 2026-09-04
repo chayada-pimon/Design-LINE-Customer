@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation"
 
-import { HomeHeader } from "@/components/home/home-header"
+import { Header } from "@/components/home/Header"
 import { HomeLayout } from "@/components/home/home-layout"
-import { PageHeading } from "@/components/home/page-heading"
 import { ReceiptDetail } from "@/components/receipts/receipt-detail"
 import { getReceiptById } from "@/components/receipts/receipt-data"
 
@@ -20,8 +19,7 @@ export default async function ReceiptDetailPage({
 
   return (
     <HomeLayout>
-      <HomeHeader backHref="/receipts" />
-      <PageHeading>รายละเอียดใบเสร็จ</PageHeading>
+      <Header backHref="/receipts" showProfileCard={false} title="รายละเอียดใบเสร็จ" />
       <ReceiptDetail receipt={receipt} />
     </HomeLayout>
   )

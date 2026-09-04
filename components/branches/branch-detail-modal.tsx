@@ -15,10 +15,22 @@ function getContractStatus(contractEnd?: string) {
   return { active: daysLeft >= 0, daysLeft }
 }
 
-function InfoValue({ value }: { value?: string }) {
+function InfoValue({ value, href }: { value?: string; href?: string }) {
   if (!value) {
     return (
       <Tag className="bg-[var(--color-warning-soft)] text-[var(--color-warning)]">รอระบุข้อมูล</Tag>
+    )
+  }
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        onClick={(event) => event.stopPropagation()}
+        className="text-[length:var(--text-label)] font-semibold text-[var(--color-text)] underline underline-offset-2"
+      >
+        {value}
+      </a>
     )
   }
 
@@ -43,7 +55,7 @@ function SectionCard({
           <span className="grid size-6 shrink-0 place-items-center rounded-full bg-blue-100 text-[var(--color-brand-header)]">
             {icon}
           </span>
-          <h3 className="text-[length:var(--text-lg)] font-bold text-[var(--color-brand-header)]">{title}</h3>
+          <h3 className="text-[length:var(--text-base)] font-bold text-[var(--color-brand-header)]">{title}</h3>
         </div>
         {action}
       </div>
@@ -52,7 +64,7 @@ function SectionCard({
   )
 }
 
-function Row({ icon, label, value }: { icon: ReactNode; label: string; value?: string }) {
+function Row({ icon, label, value, href }: { icon: ReactNode; label: string; value?: string; href?: string }) {
   return (
     <div className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
       <span className="flex items-center gap-2 text-[length:var(--text-label)] text-[var(--color-text-muted)]">
@@ -61,7 +73,7 @@ function Row({ icon, label, value }: { icon: ReactNode; label: string; value?: s
         </span>
         {label}
       </span>
-      <InfoValue value={value} />
+      <InfoValue value={value} href={href} />
     </div>
   )
 }
@@ -99,6 +111,14 @@ export function BranchDetailModal({
     }
     document.addEventListener("keydown", handleKeyDown)
     return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
+  useEffect(() => {
+    const { overflow } = document.body.style
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = overflow
+    }
   }, [])
 
   const contractStatus = getContractStatus(branch.contractEnd)
@@ -146,9 +166,9 @@ export function BranchDetailModal({
             <div className="min-w-0 flex-1">
               <p className="truncate text-[length:var(--text-lg)] font-bold text-[var(--color-text)]">{branch.name}</p>
               <div className="mt-1.5 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-[length:var(--text-h2)] font-bold text-[var(--color-brand-header)]">
+                <Tag dot={false} className="bg-blue-100 text-[var(--color-brand-header)]">
                   รหัส {branch.code}
-                </span>
+                </Tag>
               </div>
             </div>
           </section>
@@ -171,7 +191,12 @@ export function BranchDetailModal({
             }
           >
             <StackedRow icon={<MapPin aria-hidden="true" className="size-3.5" />} label="ที่อยู่" value={branch.address} />
-            <Row icon={<Phone aria-hidden="true" className="size-3.5" />} label="เบอร์โทรศัพท์" value={branch.phone} />
+            <Row
+              icon={<Phone aria-hidden="true" className="size-3.5" />}
+              label="เบอร์โทรศัพท์"
+              value={branch.phone}
+              href={branch.phone ? `tel:${branch.phone.replace(/[^0-9+]/g, "")}` : undefined}
+            />
           </SectionCard>
 
           <SectionCard
@@ -179,20 +204,19 @@ export function BranchDetailModal({
             title="สัญญา"
             action={
               contractStatus ? (
-                <span
+                <Tag
                   className={
                     contractStatus.active
-                      ? "inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[var(--color-success-soft)] px-2 py-0.5 text-[length:var(--text-h2)] font-semibold text-[var(--color-success)]"
-                      : "inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[var(--color-danger-soft)] px-2 py-0.5 text-[length:var(--text-h2)] font-semibold text-[var(--color-danger)]"
+                      ? "bg-[var(--color-success-soft)] text-[var(--color-success)]"
+                      : "bg-[var(--color-danger-soft)] text-[var(--color-danger)]"
                   }
                 >
-                  <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-current" />
                   {contractStatus.active
                     ? contractStatus.daysLeft === 0
                       ? "หมดสัญญาวันนี้"
                       : `เหลืออีก ${contractStatus.daysLeft} วัน`
                     : `หมดสัญญาแล้ว ${Math.abs(contractStatus.daysLeft)} วัน`}
-                </span>
+                </Tag>
               ) : null
             }
           >

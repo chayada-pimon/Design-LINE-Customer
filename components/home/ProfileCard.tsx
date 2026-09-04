@@ -1,6 +1,6 @@
 "use client"
 
-import { Check, Copy, Pencil } from "lucide-react"
+import { Check, ChevronRight, Copy, Pencil } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -53,7 +53,7 @@ export function ProfileCard() {
   return (
     <section
       aria-label="ข้อมูลผู้ใช้งาน"
-      className="relative mt-1 min-h-80 overflow-hidden rounded-2xl bg-gradient-to-br from-yellow-300 via-amber-100 via-40% to-white p-6 shadow-[var(--shadow-card)]"
+      className="relative mt-1 min-h-80 overflow-hidden rounded-2xl bg-gradient-to-br from-yellow-300 via-amber-100 via-40% to-white px-8 py-6 shadow-[var(--shadow-card)]"
     >
       <span
         aria-hidden="true"
@@ -105,44 +105,49 @@ export function ProfileCard() {
         <circle cx="90%" cy="65%" opacity="0.35" r="1.5" />
         <circle cx="18%" cy="80%" opacity="0.35" r="1.5" />
       </svg>
-      <div className="relative flex h-full translate-y-4 items-center justify-center gap-6 text-left">
+      <div className="relative flex h-full translate-y-4 items-center justify-center gap-4 text-left">
         <span
           aria-label={`รูปโปรไฟล์ของ ${employee.name}`}
-          className="grid size-24 shrink-0 place-items-center rounded-full border-2 border-[var(--color-brand-header)] bg-white p-[2px] shadow-[var(--shadow-card)]"
+          className="grid size-24 shrink-0 place-items-center rounded-full border-2 border-[var(--color-brand-header)] bg-white shadow-[var(--shadow-card)]"
           role="img"
         >
-          <span className="grid size-full place-items-center overflow-hidden rounded-full bg-white text-[var(--color-brand-header)] opacity-40">
+          <span className="grid size-full place-items-center overflow-hidden rounded-full bg-white text-[var(--color-brand-header)] opacity-30">
             <SharkIcon aria-hidden="true" className="size-full" preserveAspectRatio="xMidYMid meet" />
           </span>
         </span>
-        <div className="min-w-0 space-y-1.5">
+        <div className="min-w-0 flex-1 space-y-1.5 text-left">
           <p className="truncate text-[length:var(--text-lg)] leading-[var(--text-lg--line-height)] font-bold text-[var(--color-text)]">
             {employee.name}
           </p>
           <button
             aria-label="คัดลอกรหัสผู้ใช้งาน"
-            className="flex items-center gap-1 text-xs leading-tight font-normal text-[var(--color-text-muted)] outline-none"
+            className="-my-3 -ml-2 flex w-fit min-h-[var(--spacing-tap)] items-center gap-1.5 rounded-[var(--radius-btn)] px-2 text-sm leading-tight font-normal text-[var(--color-text-muted)] outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
             onClick={handleCopyId}
             type="button"
           >
             <span>รหัส {truncateId(employee.id)}</span>
             {isIdCopied ? (
-              <Check aria-hidden="true" className="size-3 text-green-600" />
+              <Check aria-hidden="true" className="size-4 text-green-600" />
             ) : (
-              <Copy aria-hidden="true" className="size-3" />
+              <Copy aria-hidden="true" className="size-4" />
             )}
           </button>
-          <div className="flex flex-nowrap items-center gap-2">
-            <Link
-              className={`inline-flex w-fit items-center gap-1 text-[length:var(--text-label)] font-semibold outline-none ${
-                isProfileIncomplete ? "text-[var(--color-warning)]" : "text-blue-600"
-              }`}
-              href="/profile/edit"
-            >
-              <Pencil aria-hidden="true" className="size-3" />
-              {isProfileIncomplete ? "กรุณากรอกข้อมูลให้ครบ" : "แก้ไขโปรไฟล์"}
-            </Link>
-          </div>
+          <Link
+            className={`mt-4 flex w-full items-center justify-between gap-2 rounded-full px-3 py-2 text-[length:var(--text-label)] font-semibold shadow-sm outline-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
+              isProfileIncomplete
+                ? "bg-amber-600 text-white hover:bg-amber-700"
+                : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+            }`}
+            href="/profile/edit"
+          >
+            <span className="flex min-w-0 items-center gap-1.5">
+              <Pencil aria-hidden="true" className="size-3.5 shrink-0" />
+              <span className="whitespace-nowrap">
+                {isProfileIncomplete ? "กรุณากรอกข้อมูลให้ครบ" : "แก้ไขโปรไฟล์"}
+              </span>
+            </span>
+            <ChevronRight aria-hidden="true" className="size-4 shrink-0" />
+          </Link>
         </div>
       </div>
     </section>

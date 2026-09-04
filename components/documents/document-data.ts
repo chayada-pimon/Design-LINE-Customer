@@ -34,6 +34,12 @@ export const CONFIRM_ACTION_LABEL: Record<DocumentType, string> = {
   notice: "รับทราบ",
 }
 
+export const CONFIRM_ACKNOWLEDGE_LABEL: Record<DocumentType, string> = {
+  consent: "ฉันได้อ่านและยินยอมตามเนื้อหาดังกล่าวแล้ว",
+  response: "ฉันได้อ่านและยืนยันข้อมูลดังกล่าวแล้ว",
+  notice: "ฉันได้อ่านและรับทราบเนื้อหาดังกล่าวแล้ว",
+}
+
 export const DOCUMENT_TYPE_LABEL: Record<DocumentType, string> = {
   consent: "ต้องยินยอม",
   response: "ต้องตอบกลับ",
