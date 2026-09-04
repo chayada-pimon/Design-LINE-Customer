@@ -17,7 +17,7 @@ export function SectionCard({ step, title, subtitle, children }: SectionCardProp
           </span>
         ) : null}
         <div className="flex flex-col gap-0.5">
-          <h2 className="text-[length:var(--text-lg)] font-bold text-[var(--color-brand-header)]">
+          <h2 className="text-[length:var(--text-base)] font-bold text-[var(--color-brand-header)]">
             {title}
           </h2>
           {subtitle ? (

@@ -108,7 +108,7 @@ export function ProfileCard() {
       <div className="relative flex h-full translate-y-4 items-center justify-center gap-4 text-left">
         <span
           aria-label={`รูปโปรไฟล์ของ ${employee.name}`}
-          className="grid size-24 shrink-0 place-items-center rounded-full border-2 border-[var(--color-brand-header)] bg-white shadow-[var(--shadow-card)] max-[400px]:size-16"
+          className="grid size-24 shrink-0 place-items-center rounded-full border-2 border-gray-200 bg-white shadow-[var(--shadow-card)] max-[400px]:size-16"
           role="img"
         >
           <span className="grid size-full place-items-center overflow-hidden rounded-full bg-white text-[var(--color-brand-header)] opacity-30">

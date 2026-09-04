@@ -21,7 +21,7 @@ export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default
       className={`interactive-card flex w-full items-center gap-3 rounded-2xl px-4 outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
         isHero
           ? "border border-blue-200 bg-blue-50 py-4 shadow-[var(--shadow-card)] active:bg-blue-100"
-          : "py-4 bg-[var(--color-surface)] shadow-[var(--shadow-card)] active:bg-[var(--color-surface-sunken)]"
+          : "border border-gray-300 py-4 bg-[var(--color-surface)] shadow-[var(--shadow-card)] active:bg-[var(--color-surface-sunken)]"
       } ${className ?? ""}`}
       href={href}
     >

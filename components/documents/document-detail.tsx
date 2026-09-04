@@ -91,7 +91,7 @@ export function DocumentDetail({ document: initialDocument }: { document: Compan
             <span className="grid size-8 shrink-0 place-items-center rounded-full bg-blue-100 text-[var(--color-brand-header)]">
               <FileText aria-hidden="true" className="size-4" />
             </span>
-            <h2 className="text-[length:var(--text-lg)] leading-6 font-bold text-[var(--color-brand-header)]">
+            <h2 className="text-[length:var(--text-base)] leading-5 font-bold text-[var(--color-brand-header)]">
               รายละเอียดเอกสาร
             </h2>
           </div>

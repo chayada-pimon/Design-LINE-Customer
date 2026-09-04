@@ -134,7 +134,7 @@ export function BranchDetailModal({
         type="button"
       />
       <div
-        className={`relative flex max-h-[85vh] w-full flex-col overflow-hidden rounded-t-2xl bg-[var(--color-surface)] text-[var(--color-text)] shadow-[var(--shadow-card)] sm:my-8 sm:max-w-lg sm:rounded-2xl ${
+        className={`relative flex h-[85vh] w-full flex-col overflow-hidden rounded-t-2xl bg-[var(--color-surface)] text-[var(--color-text)] ${
           closing ? "sheet-closing" : "sheet-opening"
         }`}
         onAnimationEnd={() => {

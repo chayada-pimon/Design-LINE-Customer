@@ -113,9 +113,11 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
     return () => document.removeEventListener("keydown", handleKeyDown)
   }, [open])
 
-  useEffect(() => {
-    if (open && !closing) inputRef.current?.focus()
-  }, [open, closing])
+  // Don't autofocus while the sheet is still sliding in: focusing mid-animation
+  // (the sheet is transform: translateY at that point) makes iOS Safari
+  // miscompute the caret position it needs to scroll into view, which shows up
+  // as the page zooming in instead of the keyboard opening cleanly. Focus only
+  // once the sheet-enter animation has settled (see onAnimationEnd below).
 
   useEffect(() => {
     if (!open) return
@@ -185,12 +187,13 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
           />
           <div
             aria-modal="true"
-            className={`relative flex max-h-[95%] w-full flex-col overflow-hidden rounded-t-2xl bg-[var(--color-surface)] text-[var(--color-text)] shadow-[var(--shadow-card)] sm:my-8 sm:max-w-lg sm:rounded-2xl ${
+            className={`relative flex h-[95%] w-full flex-col overflow-hidden rounded-t-2xl bg-[var(--color-surface)] text-[var(--color-text)] shadow-[var(--shadow-card)] ${
               closing ? "sheet-closing" : "sheet-opening"
             }`}
-            style={!viewportRect ? { maxHeight: supportsDvh ? "95dvh" : "95vh" } : undefined}
+            style={!viewportRect ? { height: supportsDvh ? "95dvh" : "95vh" } : undefined}
             onAnimationEnd={() => {
               if (closing) finishClosing()
+              else inputRef.current?.focus()
             }}
             role="dialog"
           >

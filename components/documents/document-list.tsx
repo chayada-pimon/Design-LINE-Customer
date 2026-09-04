@@ -65,7 +65,7 @@ function DocumentCard({ document }: { document: CompanyDocument }) {
 
   return (
     <Link
-      className="interactive-card block w-full rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 text-left shadow-[var(--shadow-card)] outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--color-focus)] active:bg-[var(--color-surface-sunken)]"
+      className="interactive-card block w-full rounded-[var(--radius-card)] border border-slate-200/70 bg-[var(--color-surface)] p-4 text-left shadow-[var(--shadow-card)] outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--color-focus)] active:bg-[var(--color-surface-sunken)]"
       href={`/documents/${document.id}`}
     >
       <div className="flex items-start gap-3">

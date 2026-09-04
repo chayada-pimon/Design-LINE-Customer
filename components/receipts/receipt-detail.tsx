@@ -34,7 +34,7 @@ function SectionCard({
         <span className="grid size-8 shrink-0 place-items-center rounded-full bg-blue-100 text-[var(--color-brand-header)]">
           {icon}
         </span>
-        <h2 className="text-[length:var(--text-lg)] leading-6 font-bold text-[var(--color-brand-header)]">
+        <h2 className="text-[length:var(--text-base)] leading-5 font-bold text-[var(--color-brand-header)]">
           {title}
         </h2>
       </div>
@@ -119,7 +119,7 @@ export function ReceiptDetail({ receipt }: { receipt: Receipt }) {
           <span className="grid size-8 shrink-0 place-items-center rounded-full bg-blue-100 text-[var(--color-brand-header)]">
             <ReceiptIcon aria-hidden="true" className="size-4" />
           </span>
-          <h2 className="text-[length:var(--text-lg)] leading-6 font-bold text-[var(--color-brand-header)]">
+          <h2 className="text-[length:var(--text-base)] leading-5 font-bold text-[var(--color-brand-header)]">
             รายการ
           </h2>
         </div>

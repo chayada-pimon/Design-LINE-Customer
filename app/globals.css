@@ -2,7 +2,7 @@
 
 :root {
   color-scheme: light;
-  --color-bg: #E2E8F0;
+  --color-bg: #F1F5F9;
   --color-surface: var(--color-white);
   --color-surface-sunken: var(--color-slate-50);
   --color-border: var(--color-slate-200);
@@ -41,7 +41,7 @@
   --text-caption--line-height: 1.4;
   --radius-card: 0.875rem;
   --radius-btn: 0.75rem;
-  --shadow-card: 0 1px 2px rgb(29 41 61 / 0.06);
+  --shadow-card: none;
   --spacing-tap: 2.75rem;
 }
 
