@@ -27,7 +27,7 @@ export function FormField({ label, htmlFor, required, hint, children }: FormFiel
 }
 
 export const fieldInputClass =
-  "min-h-[var(--spacing-tap)] w-full rounded-[var(--radius-btn)] border border-[var(--color-border)] bg-[var(--color-surface)] px-3.5 text-[length:var(--text-label)] text-[var(--color-text)] outline-none placeholder:text-[var(--color-text-subtle)] focus-visible:border-[var(--color-focus)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--color-focus)]"
+  "min-h-[var(--spacing-tap)] w-full rounded-[var(--radius-btn)] border border-[var(--color-border)] bg-[var(--color-surface)] px-3.5 text-base sm:text-[length:var(--text-label)] text-[var(--color-text)] outline-none placeholder:text-[var(--color-text-subtle)] focus-visible:border-[var(--color-focus)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--color-focus)]"
 
 export const fieldSelectClass = `${fieldInputClass} appearance-none pr-7`
 
