@@ -55,10 +55,20 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-bg);
+  background: var(--color-slate-300, #cbd5e1);
   color: var(--color-text);
   font-family: var(--font-thai), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+.app-frame {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  min-height: 100svh;
+  margin-inline: auto;
+  background: var(--color-bg);
+  overflow-x: clip;
 }
 
 @layer base {

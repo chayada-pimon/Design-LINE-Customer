@@ -20,7 +20,7 @@ export default async function ReceiptPdfPage({
   return (
     <HomeLayout>
       <Header backHref={`/receipts/${receipt.id}`} showProfileCard={false} title={receipt.number} />
-      <div className="px-4 pt-5 pb-8">
+      <div className="px-4 pt-5">
         {receipt.pdfUrl ? (
           <iframe
             className="h-[75vh] w-full rounded-[var(--radius-card)] border border-[var(--color-border)] shadow-[var(--shadow-card)]"

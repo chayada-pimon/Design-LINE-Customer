@@ -73,7 +73,7 @@ function StackedRow({ icon, label, value }: { icon: ReactNode; label: string; va
 
 export function BranchDetail({ branch }: { branch: Branch }) {
   return (
-    <div className="space-y-4 px-4 pt-5 pb-8">
+    <div className="space-y-4 px-4 pt-5">
       <section className="flex items-center gap-4 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-gradient-to-br from-blue-50 to-[var(--color-surface)] p-4 shadow-[var(--shadow-card)]">
         <span className="grid size-16 shrink-0 place-items-center rounded-full bg-blue-100 text-[var(--color-brand-header)] ring-4 ring-[var(--color-surface)]">
           <Building2 aria-hidden="true" className="size-8" />

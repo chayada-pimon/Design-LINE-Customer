@@ -96,7 +96,6 @@ export function BranchList() {
                         <span>{phone ?? "ไม่พบข้อมูล"}</span>
                       </p>
                       <span className="flex items-center gap-1 text-[length:var(--text-caption)] text-[var(--color-text-subtle)]">
-                        ดูรายละเอียด
                         <ChevronRight aria-hidden="true" className="size-5 shrink-0" />
                       </span>
                     </div>

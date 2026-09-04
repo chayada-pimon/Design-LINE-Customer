@@ -55,7 +55,7 @@ export default function RootLayout({
             strategy="afterInteractive"
           />
         )}
-        {children}
+        <div className="app-frame">{children}</div>
       </body>
     </html>
   )

@@ -124,7 +124,7 @@ export function BranchDetailModal({
   const contractStatus = getContractStatus(branch.contractEnd)
 
   return (
-    <div className="fixed inset-0 z-50 mx-auto flex max-w-[430px] items-end" role="presentation">
+    <div className="fixed inset-0 z-50 flex items-end justify-center" role="presentation">
       <button
         aria-label="ปิด"
         className={`drawer-backdrop absolute inset-0 bg-[var(--color-text)] opacity-40 ${
@@ -134,7 +134,7 @@ export function BranchDetailModal({
         type="button"
       />
       <div
-        className={`relative flex max-h-[85vh] w-full flex-col overflow-hidden rounded-t-2xl bg-[var(--color-surface)] text-[var(--color-text)] shadow-[var(--shadow-card)] ${
+        className={`relative flex max-h-[85vh] w-full flex-col overflow-hidden rounded-t-2xl bg-[var(--color-surface)] text-[var(--color-text)] shadow-[var(--shadow-card)] sm:my-8 sm:max-w-lg sm:rounded-2xl ${
           closing ? "sheet-closing" : "sheet-opening"
         }`}
         onAnimationEnd={() => {

@@ -35,19 +35,19 @@ export function InvoiceSummaryBar({
           }
         : {})}
     >
-      <div className="flex items-center gap-3">
-        <span className="grid size-11 shrink-0 place-items-center rounded-full bg-blue-100 text-[var(--color-brand-header)]">
-          <Wallet aria-hidden="true" className="size-5" />
+      <div className="flex items-center gap-3 max-[360px]:gap-2">
+        <span className="grid size-11 shrink-0 place-items-center rounded-full bg-blue-100 text-[var(--color-brand-header)] max-[360px]:size-9">
+          <Wallet aria-hidden="true" className="size-5 max-[360px]:size-4" />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="text-[length:var(--text-caption)] text-[var(--color-text-muted)]">
+          <p className="truncate text-[length:var(--text-caption)] text-[var(--color-text-muted)]">
             ยอดค้างชำระรวม
           </p>
-          <p className="text-[length:var(--text-h1)] font-bold text-[var(--color-text)]">
+          <p className="truncate text-[length:var(--text-h1)] font-bold text-[var(--color-text)] max-[360px]:text-[length:var(--text-lg)]">
             {formatCurrency(totalDue)} <span className="text-[length:var(--text-label)] font-semibold text-[var(--color-text-muted)]">บาท</span>
           </p>
         </div>
-        <span className="inline-flex shrink-0 items-center rounded-full bg-blue-100 px-2.5 py-1 text-[length:var(--text-h2)] font-bold text-[var(--color-brand-header)]">
+        <span className="inline-flex shrink-0 items-center rounded-full bg-blue-100 px-2.5 py-1 text-[length:var(--text-h2)] font-bold text-[var(--color-brand-header)] max-[360px]:px-2">
           {unpaid.length} ใบ
         </span>
       </div>

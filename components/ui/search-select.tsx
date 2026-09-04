@@ -38,6 +38,7 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
   const [open, setOpen] = useState(false)
   const [closing, setClosing] = useState(false)
   const [query, setQuery] = useState("")
+  const [viewportRect, setViewportRect] = useState<{ top: number; height: number } | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const closedViaSelectRef = useRef(false)
 
@@ -82,6 +83,20 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
     if (open && !closing) inputRef.current?.focus()
   }, [open, closing])
 
+  useEffect(() => {
+    if (!open) return
+    const viewport = window.visualViewport
+    if (!viewport) return
+    const updateRect = () => setViewportRect({ top: viewport.offsetTop, height: viewport.height })
+    updateRect()
+    viewport.addEventListener("resize", updateRect)
+    viewport.addEventListener("scroll", updateRect)
+    return () => {
+      viewport.removeEventListener("resize", updateRect)
+      viewport.removeEventListener("scroll", updateRect)
+    }
+  }, [open])
+
   return (
     <>
       <button
@@ -99,7 +114,11 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
       </button>
 
       {open ? (
-        <div className="fixed inset-0 z-50 mx-auto flex max-w-[430px] items-end" role="presentation">
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center"
+          role="presentation"
+          style={viewportRect ? { top: viewportRect.top, height: viewportRect.height } : undefined}
+        >
           <button
             aria-label="ปิด"
             className={`drawer-backdrop absolute inset-0 bg-[var(--color-text)] opacity-40 ${
@@ -110,13 +129,14 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
           />
           <div
             aria-modal="true"
-            className={`relative flex max-h-[80vh] w-full flex-col overflow-hidden rounded-t-2xl bg-[var(--color-surface)] text-[var(--color-text)] shadow-[var(--shadow-card)] ${
+            className={`relative flex max-h-[80%] w-full flex-col overflow-hidden rounded-t-2xl bg-[var(--color-surface)] text-[var(--color-text)] shadow-[var(--shadow-card)] sm:my-8 sm:max-w-lg sm:rounded-2xl ${
               closing ? "sheet-closing" : "sheet-opening"
             }`}
             onAnimationEnd={() => {
               if (closing) {
                 setOpen(false)
                 setClosing(false)
+                setViewportRect(null)
                 if (closedViaSelectRef.current) {
                   closedViaSelectRef.current = false
                   onSelected?.()

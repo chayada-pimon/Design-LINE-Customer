@@ -84,45 +84,51 @@ export function PersonalInfoSection({ value, onChange }: PersonalInfoSectionProp
       </FormField>
 
       <FormField label="วัน/เดือน/ปีเกิด">
-        <div className="grid grid-cols-3 gap-2">
-          <Select
-            aria-label="วันเกิด"
-            onChange={(event) => set("birthDay", event.target.value)}
-            value={value.birthDay}
-          >
-            <option value="">วัน</option>
-            {BIRTH_DAYS.map((day) => (
-              <option key={day} value={day}>
-                {day}
-              </option>
-            ))}
-          </Select>
+        <div className="grid grid-cols-[0.85fr_1.3fr_1fr] gap-2 max-[360px]:gap-1.5">
+          <div className="min-w-0">
+            <Select
+              aria-label="วันเกิด"
+              onChange={(event) => set("birthDay", event.target.value)}
+              value={value.birthDay}
+            >
+              <option value="">วัน</option>
+              {BIRTH_DAYS.map((day) => (
+                <option key={day} value={day}>
+                  {day}
+                </option>
+              ))}
+            </Select>
+          </div>
 
-          <Select
-            aria-label="เดือนเกิด"
-            onChange={(event) => set("birthMonth", event.target.value)}
-            value={value.birthMonth}
-          >
-            <option value="">เดือน</option>
-            {THAI_MONTHS.map((month, index) => (
-              <option key={month} value={index + 1}>
-                {month}
-              </option>
-            ))}
-          </Select>
+          <div className="min-w-0">
+            <Select
+              aria-label="เดือนเกิด"
+              onChange={(event) => set("birthMonth", event.target.value)}
+              value={value.birthMonth}
+            >
+              <option value="">เดือน</option>
+              {THAI_MONTHS.map((month, index) => (
+                <option key={month} value={index + 1}>
+                  {month}
+                </option>
+              ))}
+            </Select>
+          </div>
 
-          <Select
-            aria-label="ปีเกิด"
-            onChange={(event) => set("birthYear", event.target.value)}
-            value={value.birthYear}
-          >
-            <option value="">ปี พ.ศ.</option>
-            {BIRTH_YEARS.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </Select>
+          <div className="min-w-0">
+            <Select
+              aria-label="ปีเกิด"
+              onChange={(event) => set("birthYear", event.target.value)}
+              value={value.birthYear}
+            >
+              <option value="">ปี พ.ศ.</option>
+              {BIRTH_YEARS.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </Select>
+          </div>
         </div>
       </FormField>
 

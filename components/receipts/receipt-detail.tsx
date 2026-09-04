@@ -71,7 +71,7 @@ export function ReceiptDetail({ receipt }: { receipt: Receipt }) {
   const { netTotal } = getReceiptAmounts(receipt)
 
   return (
-    <div className="space-y-4 px-4 pt-5 pb-8">
+    <div className="space-y-4 px-4 pt-5">
       <section className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-gradient-to-br from-blue-50 to-[var(--color-surface)] p-4 shadow-[var(--shadow-card)]">
         <p className="truncate text-[length:var(--text-lg)] leading-6 font-bold text-[var(--color-text)]">
           {receipt.number}
@@ -133,11 +133,11 @@ export function ReceiptDetail({ receipt }: { receipt: Receipt }) {
                 <p className="truncate text-[length:var(--text-label)] leading-5 font-semibold text-[var(--color-text)]">
                   {item.name}
                 </p>
-                <p className="text-[length:var(--text-label)] leading-5 text-[var(--color-text-muted)]">
+                <p className="text-[length:var(--text-h2)] leading-4 text-[var(--color-text-muted)]">
                   {item.quantity} x {formatCurrency(item.unitPrice)} บาท
                 </p>
               </div>
-              <p className="shrink-0 text-[length:var(--text-base)] leading-6 font-bold text-[var(--color-text)]">
+              <p className="shrink-0 text-[length:var(--text-label)] leading-5 font-bold text-[var(--color-text)]">
                 {formatCurrency(item.quantity * item.unitPrice)} บาท
               </p>
             </li>

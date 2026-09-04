@@ -6,7 +6,7 @@ export default function HomePage() {
   return (
     <HomeLayout>
       <Header />
-      <div className="relative left-1/2 z-20 -mt-28 w-screen -translate-x-1/2 bg-[var(--color-bg)]">
+      <div className="relative z-20 -mt-28 w-full bg-[var(--color-bg)]">
         <img
           alt=""
           aria-hidden="true"
@@ -14,7 +14,7 @@ export default function HomePage() {
           src="/images/BG.svg"
         />
         <div
-          className="mx-auto flex min-h-[calc(100svh-19rem)] max-w-[430px] flex-col pt-4"
+          className="flex min-h-[calc(100svh-19rem)] flex-col pt-4 sm:px-6 lg:px-10"
           style={{
             paddingLeft: "max(1rem, env(safe-area-inset-left))",
             paddingRight: "max(1rem, env(safe-area-inset-right))",

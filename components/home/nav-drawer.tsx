@@ -34,7 +34,7 @@ export function NavDrawer({ closing, onAnimationEnd, onClose, open }: NavDrawerP
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-50 mx-auto max-w-[430px]" role="presentation">
+    <div className="fixed inset-0 z-50" role="presentation">
       <button
         aria-label="ปิดเมนู"
         className={`drawer-backdrop absolute inset-0 bg-[var(--color-text)] opacity-40 ${

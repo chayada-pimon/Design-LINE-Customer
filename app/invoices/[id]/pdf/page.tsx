@@ -20,7 +20,7 @@ export default async function InvoicePdfPage({
   return (
     <HomeLayout>
       <Header backHref={`/invoices/${invoice.id}`} showProfileCard={false} title={invoice.number} />
-      <div className="px-4 pt-5 pb-8">
+      <div className="px-4 pt-5">
         {invoice.pdfUrl ? (
           <iframe
             className="h-[75vh] w-full rounded-[var(--radius-card)] border border-[var(--color-border)] shadow-[var(--shadow-card)]"

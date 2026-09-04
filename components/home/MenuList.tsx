@@ -47,7 +47,7 @@ type MenuListProps = {
 export function MenuList({ loading = false }: MenuListProps) {
   if (loading) {
     return (
-      <div aria-label="เมนูหลัก" className="flex flex-col gap-3">
+      <div aria-label="เมนูหลัก" className="grid grid-cols-1 gap-3">
         {menuItems.map((item) => (
           <MenuCardSkeleton key={item.href} />
         ))}
@@ -56,7 +56,7 @@ export function MenuList({ loading = false }: MenuListProps) {
   }
 
   return (
-    <div aria-label="เมนูหลัก" className="flex flex-col gap-3">
+    <div aria-label="เมนูหลัก" className="grid grid-cols-1 gap-3">
       {menuItems.map(({ href, title, subtitle, icon, variant, badge }) => (
         <MenuCard
           badge={badge}

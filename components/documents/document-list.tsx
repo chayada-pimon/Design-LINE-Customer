@@ -94,9 +94,8 @@ function DocumentCard({ document }: { document: CompanyDocument }) {
           <p>เผยแพร่ {formatThaiDate(document.publishedDate)}</p>
           {document.dueDate ? <p>ครบกำหนด {formatThaiDate(document.dueDate)}</p> : null}
         </div>
-        <span className="flex items-center gap-1 text-[length:var(--text-caption)] text-[var(--color-text-subtle)]">
-          ดูรายละเอียด
-          <ChevronRight aria-hidden="true" className="size-5 shrink-0" />
+        <span className="flex items-center gap-1 text-[length:var(--text-h2)] text-[var(--color-text-subtle)]">
+          <ChevronRight aria-hidden="true" className="size-4 shrink-0" />
         </span>
       </div>
     </Link>

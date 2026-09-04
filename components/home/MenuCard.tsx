@@ -10,9 +10,10 @@ type MenuCardProps = {
   subtitle: string
   variant?: "default" | "hero"
   badge?: string
+  className?: string
 }
 
-export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default", badge }: MenuCardProps) {
+export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default", badge, className }: MenuCardProps) {
   const isHero = variant === "hero"
 
   return (
@@ -21,7 +22,7 @@ export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default
         isHero
           ? "border border-blue-200 bg-blue-50 py-4 shadow-[var(--shadow-card)] active:bg-blue-100"
           : "py-4 bg-[var(--color-surface)] shadow-[var(--shadow-card)] active:bg-[var(--color-surface-sunken)]"
-      }`}
+      } ${className ?? ""}`}
       href={href}
     >
       <span
@@ -32,7 +33,7 @@ export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default
         <Icon aria-hidden="true" className="size-5" strokeWidth={1.75} />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-[length:var(--text-base)] font-bold text-[var(--color-text)]">
+        <span className="block truncate text-[length:var(--text-base)] font-bold text-[var(--color-text)]">
           {title}
         </span>
         <span className="mt-0.5 flex min-w-0 items-center gap-2">

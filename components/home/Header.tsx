@@ -19,8 +19,8 @@ export function Header({ backHref, showProfileCard = true, title = "หน้า
 
   return (
     <>
-      <header className="relative left-1/2 z-0 w-screen -translate-x-1/2 overflow-hidden bg-[var(--color-brand-header)] px-4">
-        <div className="relative z-10 mx-auto flex h-14 max-w-[430px] items-center justify-between">
+      <header className="relative z-0 w-full overflow-hidden bg-[var(--color-brand-header)] px-4 sm:px-6 lg:px-10">
+        <div className="relative z-10 flex h-14 items-center justify-between">
           {backHref ? (
             <Link
               aria-label="ย้อนกลับ"
@@ -44,17 +44,17 @@ export function Header({ backHref, showProfileCard = true, title = "หน้า
           </span>
           <MenuButton className="text-white" onClick={openDrawer} open={open} />
         </div>
-        <div className="relative z-10 mx-auto mt-3 max-w-[430px]">
+        <div className="relative z-10 mt-3">
           <h1 className="mt-1 text-center text-[length:var(--text-lg)] leading-[var(--text-lg--line-height)] font-bold text-white">
             {title}
           </h1>
         </div>
         {showProfileCard ? (
-          <div className="relative z-10 mx-auto mt-6 max-w-[430px]">
+          <div className="relative z-10 mt-6">
             <ProfileCard />
           </div>
         ) : (
-          <span aria-hidden="true" className="relative z-10 mx-auto block max-w-[430px] pb-6" />
+          <span aria-hidden="true" className="relative z-10 block pb-6" />
         )}
       </header>
 

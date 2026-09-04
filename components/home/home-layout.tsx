@@ -6,10 +6,8 @@ type HomeLayoutProps = {
 
 export function HomeLayout({ children }: HomeLayoutProps) {
   return (
-    <main className="min-h-svh bg-[var(--color-bg)] text-[var(--color-text)]">
-      <div className="isolate mx-auto min-h-svh max-w-[430px] bg-[var(--color-bg)] pb-8">
-        {children}
-      </div>
+    <main className="bg-[var(--color-bg)] text-[var(--color-text)]">
+      <div className="isolate bg-[var(--color-bg)] pb-8">{children}</div>
     </main>
   )
 }

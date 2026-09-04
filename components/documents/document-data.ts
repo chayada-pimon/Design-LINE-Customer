@@ -74,7 +74,7 @@ export function formatThaiDate(dateString: string) {
   return date.toLocaleDateString("th-TH", {
     day: "numeric",
     month: "short",
-    year: "numeric",
+    year: "2-digit",
   })
 }
 

@@ -82,7 +82,7 @@ export function DocumentDetail({ document: initialDocument }: { document: Compan
   }
 
   return (
-    <div className="space-y-4 px-4 pt-5 pb-8">
+    <div className="space-y-4 px-4 pt-5">
       {/* การ์ดเดียว: หัวเรื่อง + สถานะ/กำหนดเวลา + เนื้อหาเอกสาร */}
       <section className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)]">
         {/* หัวเรื่อง + สถานะมุมขวาบน */}

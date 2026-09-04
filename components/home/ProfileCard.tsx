@@ -1,6 +1,6 @@
 "use client"
 
-import { Check, ChevronRight, Copy, Pencil } from "lucide-react"
+import { Check, Copy, Pencil } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -108,7 +108,7 @@ export function ProfileCard() {
       <div className="relative flex h-full translate-y-4 items-center justify-center gap-4 text-left">
         <span
           aria-label={`รูปโปรไฟล์ของ ${employee.name}`}
-          className="grid size-24 shrink-0 place-items-center rounded-full border-2 border-[var(--color-brand-header)] bg-white shadow-[var(--shadow-card)]"
+          className="grid size-24 shrink-0 place-items-center rounded-full border-2 border-[var(--color-brand-header)] bg-white shadow-[var(--shadow-card)] max-[400px]:size-16"
           role="img"
         >
           <span className="grid size-full place-items-center overflow-hidden rounded-full bg-white text-[var(--color-brand-header)] opacity-30">
@@ -127,13 +127,13 @@ export function ProfileCard() {
           >
             <span>รหัส {truncateId(employee.id)}</span>
             {isIdCopied ? (
-              <Check aria-hidden="true" className="size-4 text-green-600" />
+              <Check aria-hidden="true" className="size-3.5 text-green-600" />
             ) : (
-              <Copy aria-hidden="true" className="size-4" />
+              <Copy aria-hidden="true" className="size-3.5" />
             )}
           </button>
           <Link
-            className={`mt-4 flex w-full items-center justify-between gap-2 rounded-full px-3 py-2 text-[length:var(--text-label)] font-semibold shadow-sm outline-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
+            className={`mt-4 flex w-full items-center justify-center gap-2 rounded-full px-3 py-2 text-[length:var(--text-label)] font-semibold shadow-sm outline-none transition-colors max-[400px]:gap-1 max-[400px]:px-2 max-[400px]:py-1.5 max-[400px]:text-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
               isProfileIncomplete
                 ? "bg-amber-600 text-white hover:bg-amber-700"
                 : "bg-blue-100 text-blue-700 hover:bg-blue-200"
@@ -141,12 +141,11 @@ export function ProfileCard() {
             href="/profile/edit"
           >
             <span className="flex min-w-0 items-center gap-1.5">
-              <Pencil aria-hidden="true" className="size-3.5 shrink-0" />
+              <Pencil aria-hidden="true" className="size-3.5 shrink-0 max-[400px]:size-3" />
               <span className="whitespace-nowrap">
                 {isProfileIncomplete ? "กรุณากรอกข้อมูลให้ครบ" : "แก้ไขโปรไฟล์"}
               </span>
             </span>
-            <ChevronRight aria-hidden="true" className="size-4 shrink-0" />
           </Link>
         </div>
       </div>

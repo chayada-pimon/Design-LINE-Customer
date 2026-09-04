@@ -54,6 +54,7 @@ export function DocumentDateFilter({
   const [viewMonth, setViewMonth] = useState(initial.getMonth())
 
   const label = formatRangeLabel(value)
+  const labelRange = parseDateRange(value)
   const markedSet = new Set(markedDates)
 
   useEffect(() => {
@@ -146,14 +147,21 @@ export function DocumentDateFilter({
         aria-expanded={open}
         aria-haspopup="dialog"
         aria-label="กรองตามวันที่เผยแพร่"
-        className="flex items-center gap-1.5 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] py-1.5 pr-3 pl-2.5 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
+        className="flex min-w-0 items-center gap-1.5 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] py-1.5 pr-3 pl-2.5 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
         onClick={openPicker}
         type="button"
       >
         <Calendar aria-hidden="true" className="size-4 shrink-0 text-[var(--color-brand-header)]" />
-        <span className="max-w-40 truncate text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
-          {label}
-        </span>
+        {labelRange.end && labelRange.end !== labelRange.start ? (
+          <span className="max-w-24 text-right text-[length:var(--text-h2)] leading-tight font-bold text-[var(--color-text)] sm:max-w-none">
+            <span className="block">{formatThaiDate(labelRange.start!)}</span>
+            <span className="block">- {formatThaiDate(labelRange.end)}</span>
+          </span>
+        ) : (
+          <span className="max-w-24 truncate text-right text-[length:var(--text-h2)] font-bold text-[var(--color-text)] sm:max-w-40">
+            {label}
+          </span>
+        )}
         <ChevronDown aria-hidden="true" className="size-3.5 shrink-0 text-[var(--color-text-subtle)]" />
       </button>
 
