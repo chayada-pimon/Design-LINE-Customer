@@ -41,6 +41,7 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
   const [viewportRect, setViewportRect] = useState<{ top: number; height: number } | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const closedViaSelectRef = useRef(false)
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const normalized = useMemo(() => normalizeOptions(options), [options])
   const selected = normalized.find((option) => option.value === value)
@@ -68,7 +69,35 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
     requestClose(true)
   }
 
+  function finishClosing() {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+    setOpen(false)
+    setClosing(false)
+    setViewportRect(null)
+    if (closedViaSelectRef.current) {
+      closedViaSelectRef.current = false
+      onSelected?.()
+    }
+  }
+
   useImperativeHandle(ref, () => ({ open: openSheet }))
+
+  // Safety net: if the sheet-exit animationend never fires (backgrounded tab,
+  // interrupted animation, etc.), force the sheet closed so the body scroll
+  // lock and full-screen overlay don't get stuck forever.
+  useEffect(() => {
+    if (!closing) return
+    closeTimeoutRef.current = setTimeout(finishClosing, 500)
+    return () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current)
+        closeTimeoutRef.current = null
+      }
+    }
+  }, [closing])
 
   useEffect(() => {
     if (!open) return
@@ -82,6 +111,16 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
   useEffect(() => {
     if (open && !closing) inputRef.current?.focus()
   }, [open, closing])
+
+  useEffect(() => {
+    if (!open) return
+    const { style } = document.body
+    const previousOverflow = style.overflow
+    style.overflow = "hidden"
+    return () => {
+      style.overflow = previousOverflow
+    }
+  }, [open])
 
   useEffect(() => {
     if (!open) return
@@ -129,19 +168,12 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
           />
           <div
             aria-modal="true"
-            className={`relative flex max-h-[80%] w-full flex-col overflow-hidden rounded-t-2xl bg-[var(--color-surface)] text-[var(--color-text)] shadow-[var(--shadow-card)] sm:my-8 sm:max-w-lg sm:rounded-2xl ${
+            className={`relative flex max-h-[95%] w-full flex-col overflow-hidden rounded-t-2xl bg-[var(--color-surface)] text-[var(--color-text)] shadow-[var(--shadow-card)] sm:my-8 sm:max-w-lg sm:rounded-2xl ${
               closing ? "sheet-closing" : "sheet-opening"
             }`}
+            style={!viewportRect ? { maxHeight: "95dvh" } : undefined}
             onAnimationEnd={() => {
-              if (closing) {
-                setOpen(false)
-                setClosing(false)
-                setViewportRect(null)
-                if (closedViaSelectRef.current) {
-                  closedViaSelectRef.current = false
-                  onSelected?.()
-                }
-              }
+              if (closing) finishClosing()
             }}
             role="dialog"
           >
@@ -173,7 +205,7 @@ export const SearchSelect = forwardRef<SearchSelectHandle, SearchSelectProps>(fu
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto py-2">
+            <div className="flex-1 overflow-y-auto overscroll-contain py-2">
               {filtered.length === 0 ? (
                 <p className="px-5 py-6 text-center text-[length:var(--text-label)] text-[var(--color-text-subtle)]">
                   {emptyLabel}

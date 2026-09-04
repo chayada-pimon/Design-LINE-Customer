@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react"
+import { useEffect, useMemo, useRef } from "react"
 import { THAI_PROVINCES } from "@/lib/thai-provinces"
 import {
   findDistrictsByProvince,
@@ -37,6 +37,14 @@ export function AddressFields({ idPrefix, value, onChange }: AddressFieldsProps)
 
   const districtSelectRef = useRef<SearchSelectHandle>(null)
   const subdistrictSelectRef = useRef<SearchSelectHandle>(null)
+  const addressTextareaRef = useRef<HTMLTextAreaElement>(null)
+
+  useEffect(() => {
+    const textarea = addressTextareaRef.current
+    if (!textarea) return
+    textarea.style.height = "auto"
+    textarea.style.height = `${textarea.scrollHeight}px`
+  }, [value.address])
 
   const districts = useMemo(() => findDistrictsByProvince(value.province), [value.province])
   const subdistrictMatches = useMemo(
@@ -105,10 +113,11 @@ export function AddressFields({ idPrefix, value, onChange }: AddressFieldsProps)
       <FormField htmlFor={`${idPrefix}-address`} label="ที่อยู่">
         <textarea
           autoComplete="address-line1"
-          className={`${fieldInputClass} min-h-20 resize-none py-2.5`}
+          className={`${fieldInputClass} min-h-20 resize-none overflow-hidden py-2.5`}
           id={`${idPrefix}-address`}
           onChange={(event) => set("address", event.target.value)}
           placeholder="บ้านเลขที่ หมู่บ้าน ถนน"
+          ref={addressTextareaRef}
           value={value.address}
         />
       </FormField>

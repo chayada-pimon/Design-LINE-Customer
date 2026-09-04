@@ -29,10 +29,10 @@ export function FormField({ label, htmlFor, required, hint, children }: FormFiel
 export const fieldInputClass =
   "min-h-[var(--spacing-tap)] w-full rounded-[var(--radius-btn)] border border-[var(--color-border)] bg-[var(--color-surface)] px-3.5 text-[length:var(--text-label)] text-[var(--color-text)] outline-none placeholder:text-[var(--color-text-subtle)] focus-visible:border-[var(--color-focus)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--color-focus)]"
 
-export const fieldSelectClass = `${fieldInputClass} appearance-none pr-10`
+export const fieldSelectClass = `${fieldInputClass} appearance-none pr-7`
 
 export const fieldLockedClass =
-  "min-h-[var(--spacing-tap)] w-full rounded-[var(--radius-btn)] border border-[var(--color-border)] bg-[var(--color-slate-100)] px-3.5 text-[length:var(--text-label)] text-[var(--color-text)] flex items-center"
+  "min-h-[var(--spacing-tap)] w-full rounded-[var(--radius-btn)] border border-[var(--color-border)] bg-[var(--color-surface)] px-3.5 text-[length:var(--text-label)] text-[var(--color-text)] flex items-center"
 
 export function Select({
   className,
@@ -43,7 +43,7 @@ export function Select({
       <select className={`${fieldSelectClass} ${className ?? ""}`} {...props} />
       <ChevronDown
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-[var(--color-text-subtle)]"
+        className="pointer-events-none absolute top-1/2 right-2 size-4 -translate-y-1/2 text-[var(--color-text-subtle)]"
       />
     </div>
   )
