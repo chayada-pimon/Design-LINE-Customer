@@ -9,7 +9,7 @@ import { loadProfile } from "@/lib/profile-storage"
 
 const DEFAULT_EMPLOYEE = {
   id: "U63612e8f9c1a4b2d8e6f0a1b2c3ddb65",
-  name: "สมชาย ใจดี",
+  name: "ชญาฎา พิมลพันธ์",
   occupation: "",
 }
 
@@ -115,13 +115,13 @@ export function ProfileCard() {
             <SharkIcon aria-hidden="true" className="size-full" preserveAspectRatio="xMidYMid meet" />
           </span>
         </span>
-        <div className="min-w-0 flex-1 space-y-1.5 text-left">
-          <p className="truncate text-[length:var(--text-lg)] leading-[var(--text-lg--line-height)] font-bold text-[var(--color-text)]">
+        <div className="min-w-0 space-y-1.5 text-left">
+          <p className="truncate text-[length:var(--text-lg)] leading-[var(--text-lg--line-height)] font-bold text-[var(--color-text)] max-[400px]:text-base">
             {employee.name}
           </p>
           <button
             aria-label="คัดลอกรหัสผู้ใช้งาน"
-            className="-my-3 -ml-2 flex w-fit min-h-[var(--spacing-tap)] items-center gap-1.5 rounded-[var(--radius-btn)] px-2 text-sm leading-tight font-normal text-[var(--color-text-muted)] outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
+            className="-my-3 -ml-2 flex w-fit min-h-[var(--spacing-tap)] items-center gap-1.5 rounded-[var(--radius-btn)] px-2 text-sm leading-tight font-normal text-[var(--color-text-muted)] outline-none max-[400px]:text-xs focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
             onClick={handleCopyId}
             type="button"
           >
@@ -133,7 +133,7 @@ export function ProfileCard() {
             )}
           </button>
           <Link
-            className={`mt-4 flex w-full items-center justify-center gap-2 rounded-full px-3 py-2 text-[length:var(--text-label)] font-semibold shadow-sm outline-none transition-colors max-[400px]:gap-1 max-[400px]:px-2 max-[400px]:py-1.5 max-[400px]:text-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
+            className={`mt-4 flex w-fit items-center justify-center gap-2 rounded-full px-3 py-2 text-[length:var(--text-label)] font-semibold shadow-sm outline-none transition-colors max-[400px]:gap-1 max-[400px]:px-2 max-[400px]:py-1.5 max-[400px]:text-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
               isProfileIncomplete
                 ? "bg-amber-600 text-white hover:bg-amber-700"
                 : "bg-blue-100 text-blue-700 hover:bg-blue-200"

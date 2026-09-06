@@ -1,4 +1,5 @@
 import { ChevronRight, type LucideIcon } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 import { Tag } from "@/components/ui/tag"
@@ -18,21 +19,31 @@ export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default
 
   return (
     <Link
-      className={`interactive-card flex w-full items-center gap-3 rounded-2xl px-4 outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
+      className={`interactive-card relative flex w-full items-center gap-3 overflow-hidden rounded-2xl px-4 outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
         isHero
-          ? "border border-gray-300 bg-blue-50 py-4 shadow-[var(--shadow-card)] active:bg-blue-100"
+          ? "border border-gray-300 bg-gradient-to-r from-blue-100 via-blue-50 to-white py-4 shadow-[var(--shadow-card)] active:from-blue-200 active:via-blue-100 active:to-blue-50"
           : "border border-gray-300 py-4 bg-[var(--color-surface)] active:bg-[var(--color-surface-sunken)]"
       } ${className ?? ""}`}
       href={href}
     >
+      {isHero ? (
+        <Image
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute right-0 top-1/2 h-28 w-28 -translate-y-1/2 object-contain opacity-30"
+          height={112}
+          src="/images/branch-card-mascot.png"
+          width={112}
+        />
+      ) : null}
       <span
-        className={`grid shrink-0 place-items-center rounded-full text-[var(--color-action)] ${
+        className={`relative grid shrink-0 place-items-center rounded-full text-[var(--color-action)] ${
           isHero ? "size-11 bg-white" : "size-11 bg-blue-50"
         }`}
       >
         <Icon aria-hidden="true" className="size-5" strokeWidth={1.75} />
       </span>
-      <span className="min-w-0 flex-1">
+      <span className="relative min-w-0 flex-1">
         <span className="flex min-w-0 items-center gap-2">
           <span className="truncate text-[length:var(--text-base)] font-bold text-[var(--color-text)]">
             {title}
@@ -43,7 +54,7 @@ export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default
           {subtitle}
         </span>
       </span>
-      <ChevronRight aria-hidden="true" className="size-5 shrink-0 text-[var(--color-text-subtle)]" />
+      <ChevronRight aria-hidden="true" className="relative size-5 shrink-0 text-[var(--color-text-subtle)]" />
     </Link>
   )
 }

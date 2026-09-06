@@ -66,28 +66,16 @@ function SectionCard({
 
 function Row({ icon, label, value, href }: { icon: ReactNode; label: string; value?: string; href?: string }) {
   return (
-    <div className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
-      <span className="flex items-center gap-2 text-[length:var(--text-label)] text-[var(--color-text-muted)]">
+    <div className="flex items-start justify-between gap-3 py-3 first:pt-0 last:pb-0">
+      <span className="flex shrink-0 items-center gap-2 text-[length:var(--text-label)] text-[var(--color-text-muted)]">
         <span aria-hidden="true" className="grid size-6 shrink-0 place-items-center text-[var(--color-text-subtle)]">
           {icon}
         </span>
         {label}
       </span>
-      <InfoValue value={value} href={href} />
-    </div>
-  )
-}
-
-function StackedRow({ icon, label, value }: { icon: ReactNode; label: string; value?: string }) {
-  return (
-    <div className="space-y-1 py-3 first:pt-0 last:pb-0">
-      <span className="flex items-center gap-2 text-[length:var(--text-label)] text-[var(--color-text-muted)]">
-        <span aria-hidden="true" className="grid size-6 shrink-0 place-items-center text-[var(--color-text-subtle)]">
-          {icon}
-        </span>
-        {label}
-      </span>
-      <InfoValue value={value} />
+      <div className="text-right">
+        <InfoValue value={value} href={href} />
+      </div>
     </div>
   )
 }
@@ -160,7 +148,7 @@ export function BranchDetailModal({
 
         <div className="space-y-4 overflow-y-auto px-5 pt-3 pb-6">
           <section className="flex items-center gap-4 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-gradient-to-br from-blue-50 to-[var(--color-surface)] p-4">
-            <span className="grid size-16 shrink-0 place-items-center rounded-full bg-blue-100 text-[var(--color-brand-header)] ring-4 ring-[var(--color-surface)]">
+            <span className="grid size-16 shrink-0 place-items-center rounded-full bg-blue-100 text-[var(--color-brand-header)] ring-2 ring-[var(--color-surface)]">
               <Building2 aria-hidden="true" className="size-8" />
             </span>
             <div className="min-w-0 flex-1">
@@ -190,7 +178,7 @@ export function BranchDetailModal({
               ) : null
             }
           >
-            <StackedRow icon={<MapPin aria-hidden="true" className="size-3.5" />} label="ที่อยู่" value={branch.address} />
+            <Row icon={<MapPin aria-hidden="true" className="size-3.5" />} label="ที่อยู่" value={branch.address} />
             <Row
               icon={<Phone aria-hidden="true" className="size-3.5" />}
               label="เบอร์โทรศัพท์"

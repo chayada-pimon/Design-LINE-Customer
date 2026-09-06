@@ -82,7 +82,7 @@ export function DocumentDetail({ document: initialDocument }: { document: Compan
   }
 
   return (
-    <div className="space-y-4 px-4 pt-5">
+    <div className="space-y-4 px-4 pt-5 pb-28">
       {/* การ์ดเดียว: หัวเรื่อง + สถานะ/กำหนดเวลา + เนื้อหาเอกสาร */}
       <section className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)]">
         {/* หัวเรื่อง + สถานะมุมขวาบน */}
@@ -183,8 +183,8 @@ export function DocumentDetail({ document: initialDocument }: { document: Compan
         <div aria-hidden="true" ref={sentinelRef} />
       </section>
 
-      {/* 4. ปุ่มยืนยัน — แยกจากสถานะด้านบนเสมอ */}
-      <div className="space-y-2 border-t border-[var(--color-border)] pt-4">
+      {/* 4. ปุ่มยืนยัน — ชิดล่างจอเสมอ แยกจากสถานะด้านบน */}
+      <div className="fixed inset-x-0 bottom-0 z-40 space-y-2 border-t border-[var(--color-border)] bg-[var(--color-surface)] px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-[var(--shadow-card)]">
         {buttonState === "confirmed" ? (
           <div className="flex min-h-[var(--spacing-tap)] w-full items-center justify-center gap-2 rounded-[var(--radius-btn)] border border-[var(--color-success)] bg-[var(--color-success-soft)] text-[length:var(--text-label)] font-bold text-[var(--color-success)]">
             <CheckCircle2 aria-hidden="true" className="size-5" />

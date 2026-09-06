@@ -129,7 +129,7 @@ export function ReceiptDetail({ receipt }: { receipt: Receipt }) {
               key={index}
               className="flex items-end justify-between gap-3 py-2.5 first:pt-0 last:pb-0"
             >
-              <div className="min-w-0 flex-1">
+              <div className="flex min-w-0 flex-1 flex-col gap-1">
                 <p className="truncate text-[length:var(--text-label)] leading-5 font-semibold text-[var(--color-text)]">
                   {item.name}
                 </p>

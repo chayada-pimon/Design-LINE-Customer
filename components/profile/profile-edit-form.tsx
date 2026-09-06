@@ -13,7 +13,7 @@ import { TaxInvoiceAddressSection } from "@/components/profile/tax-invoice-addre
 import { loadProfile, saveProfile } from "@/lib/profile-storage"
 
 const INITIAL_PERSONAL_INFO: PersonalInfoData = {
-  fullName: "สมชาย ใจดี",
+  fullName: "ชญาฎา พิมลพันธ์",
   taxId: "1234567890123",
   nickname: "",
   birthDay: "",

@@ -137,7 +137,7 @@ export function InvoiceDetail({ invoice }: { invoice: Invoice }) {
           {invoice.items.map((item, index) => (
             <li
               key={index}
-              className="flex items-center justify-between gap-3 py-2.5 first:pt-0 last:pb-0"
+              className="flex items-start justify-between gap-3 py-2.5 first:pt-0 last:pb-0"
             >
               <div className="min-w-0 flex-1">
                 <p className="truncate text-[length:var(--text-label)] leading-5 font-semibold text-[var(--color-text)]">

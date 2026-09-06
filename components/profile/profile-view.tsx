@@ -11,7 +11,7 @@ import { THAI_MONTHS } from "@/lib/thai-provinces"
 import { loadProfile } from "@/lib/profile-storage"
 
 const EMPTY_PERSONAL_INFO: PersonalInfoData = {
-  fullName: "สมชาย ใจดี",
+  fullName: "ชญาฎา พิมลพันธ์",
   taxId: "1234567890123",
   nickname: "",
   birthDay: "",
