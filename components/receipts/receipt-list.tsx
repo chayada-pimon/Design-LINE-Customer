@@ -115,7 +115,7 @@ export function ReceiptList() {
                     <p className="text-[length:var(--text-base)] font-bold text-[var(--color-text)]">
                       {formatCurrency(netTotal)} <span className="text-[length:var(--text-caption)] font-normal text-[var(--color-text-muted)]">บาท</span>
                     </p>
-                    <span className="flex items-center gap-1 text-[length:var(--text-caption)] text-[var(--color-text-subtle)]">
+                    <span className="flex items-center gap-1 text-[length:var(--text-caption)] text-[var(--color-action)]">
                       <ChevronRight aria-hidden="true" className="size-5 shrink-0" />
                     </span>
                   </div>

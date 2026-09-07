@@ -9,7 +9,6 @@ import {
   User,
 } from "lucide-react"
 
-import Link from "next/link"
 import type { ReactNode } from "react"
 
 import {
@@ -213,13 +212,15 @@ export function InvoiceDetail({ invoice }: { invoice: Invoice }) {
       ) : null}
 
       <div className="space-y-2.5">
-        <Link
+        <a
           className="primary-action flex min-h-[var(--spacing-tap)] w-full items-center justify-center gap-2 rounded-[var(--radius-btn)] border border-[var(--color-action)] bg-[var(--color-action)] text-[length:var(--text-label)] font-bold text-[var(--color-surface)] shadow-[var(--shadow-card)] outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
-          href={`/invoices/${invoice.id}/pdf`}
+          href={invoice.pdfUrl}
+          rel="noreferrer"
+          target="_blank"
         >
           <FileText aria-hidden="true" className="size-5" />
           ดูใบแจ้งหนี้ (PDF)
-        </Link>
+        </a>
         <button
           className="flex min-h-[var(--spacing-tap)] w-full items-center justify-center gap-2 rounded-[var(--radius-btn)] border border-[var(--color-border)] bg-[var(--color-surface)] text-[length:var(--text-label)] font-bold text-[var(--color-text-muted)] outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
           type="button"

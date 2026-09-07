@@ -54,7 +54,7 @@ export function MenuCard({ href, icon: Icon, title, subtitle, variant = "default
           {subtitle}
         </span>
       </span>
-      <ChevronRight aria-hidden="true" className="relative size-5 shrink-0 text-[var(--color-text-subtle)]" />
+      <ChevronRight aria-hidden="true" className="relative size-5 shrink-0 text-[var(--color-action)]" />
     </Link>
   )
 }

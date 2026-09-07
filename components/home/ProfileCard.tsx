@@ -21,21 +21,25 @@ function truncateId(id: string) {
   return `${id.slice(0, 8)}...${id.slice(-4)}`
 }
 
+function getEmployeeFromStorage() {
+  const stored = loadProfile()
+  if (!stored) return DEFAULT_EMPLOYEE
+
+  return {
+    ...DEFAULT_EMPLOYEE,
+    occupation:
+      stored.personalInfo.occupation === "อื่นๆ"
+        ? stored.personalInfo.occupationOther
+        : stored.personalInfo.occupation,
+  }
+}
+
 export function ProfileCard() {
   const [employee, setEmployee] = useState(DEFAULT_EMPLOYEE)
   const [isIdCopied, setIsIdCopied] = useState(false)
 
   useEffect(() => {
-    const stored = loadProfile()
-    if (!stored) return
-
-    setEmployee((previous) => ({
-      ...previous,
-      occupation:
-        stored.personalInfo.occupation === "อื่นๆ"
-          ? stored.personalInfo.occupationOther
-          : stored.personalInfo.occupation,
-    }))
+    setEmployee(getEmployeeFromStorage())
   }, [])
 
   const isProfileIncomplete = REQUIRED_PROFILE_FIELDS.some((field) => !employee[field]?.trim())

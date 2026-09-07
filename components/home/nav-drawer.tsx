@@ -1,6 +1,12 @@
 "use client"
 
-import { LogOut, Menu, X } from "lucide-react"
+import { Home, LogOut, Menu, X } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+
+import { menuItems } from "@/components/home/menu-items"
+
+const drawerItems = [{ href: "/", title: "หน้าหลัก", icon: Home }, ...menuItems]
 
 type MenuButtonProps = {
   className?: string
@@ -31,6 +37,8 @@ type NavDrawerProps = {
 }
 
 export function NavDrawer({ closing, onAnimationEnd, onClose, open }: NavDrawerProps) {
+  const pathname = usePathname()
+
   if (!open) return null
 
   return (
@@ -64,6 +72,28 @@ export function NavDrawer({ closing, onAnimationEnd, onClose, open }: NavDrawerP
             <X aria-hidden="true" className="size-6" />
           </button>
         </div>
+        <nav aria-label="เมนูบริการ" className="mt-2 flex flex-1 flex-col gap-1 overflow-y-auto py-2">
+          {drawerItems.map(({ href, title, icon: Icon }) => {
+            const active = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`))
+
+            return (
+              <Link
+                aria-current={active ? "page" : undefined}
+                className={`flex min-h-[var(--spacing-tap)] items-center gap-3 rounded-[var(--radius-btn)] px-4 text-[length:var(--text-label)] font-bold outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-focus)] ${
+                  active
+                    ? "bg-blue-50 text-[var(--color-action)]"
+                    : "text-[var(--color-text)] active:bg-[var(--color-surface-sunken)]"
+                }`}
+                href={href}
+                key={href}
+                onClick={onClose}
+              >
+                <Icon aria-hidden="true" className="size-5" strokeWidth={1.75} />
+                {title}
+              </Link>
+            )
+          })}
+        </nav>
         <div className="mt-auto border-t border-[var(--color-border)] pt-4">
           <button
             className="flex min-h-[var(--spacing-tap)] w-full items-center gap-2 rounded-[var(--radius-btn)] px-4 text-left text-[length:var(--text-label)] font-bold text-[var(--color-checkout)] outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"

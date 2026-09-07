@@ -7,7 +7,6 @@ import {
   User,
 } from "lucide-react"
 
-import Link from "next/link"
 import type { ReactNode } from "react"
 
 import {
@@ -71,7 +70,7 @@ export function ReceiptDetail({ receipt }: { receipt: Receipt }) {
   const { netTotal } = getReceiptAmounts(receipt)
 
   return (
-    <div className="space-y-4 px-4 pt-5">
+    <div className="space-y-4 px-4 pt-5 pb-28">
       <section className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-gradient-to-br from-blue-50 to-[var(--color-surface)] p-4 shadow-[var(--shadow-card)]">
         <p className="truncate text-[length:var(--text-lg)] leading-6 font-bold text-[var(--color-text)]">
           {receipt.number}
@@ -152,14 +151,16 @@ export function ReceiptDetail({ receipt }: { receipt: Receipt }) {
         </div>
       </section>
 
-      <div className="space-y-2.5">
-        <Link
+      <div className="fixed inset-x-0 bottom-0 z-40 space-y-2 border-t border-[var(--color-border)] bg-[var(--color-surface)] px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-[var(--shadow-card)]">
+        <a
           className="primary-action flex min-h-[var(--spacing-tap)] w-full items-center justify-center gap-2 rounded-[var(--radius-btn)] border border-[var(--color-action)] bg-[var(--color-action)] text-[length:var(--text-label)] font-bold text-[var(--color-surface)] shadow-[var(--shadow-card)] outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
-          href={`/receipts/${receipt.id}/pdf`}
+          href={receipt.pdfUrl}
+          rel="noreferrer"
+          target="_blank"
         >
           <FileText aria-hidden="true" className="size-5" />
           ดูใบเสร็จ (PDF)
-        </Link>
+        </a>
       </div>
     </div>
   )

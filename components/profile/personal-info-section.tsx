@@ -8,6 +8,7 @@ import {
   Select,
 } from "@/components/profile/form-field"
 import { SectionCard } from "@/components/profile/section-card"
+import { SearchSelect } from "@/components/ui/search-select"
 
 const currentBuddhistYear = new Date().getFullYear() + 543
 const BIRTH_YEARS = Array.from({ length: 100 }, (_, index) => currentBuddhistYear - index)
@@ -174,18 +175,14 @@ export function PersonalInfoSection({ value, onChange }: PersonalInfoSectionProp
       </FormField>
 
       <FormField htmlFor="occupation" label="อาชีพ">
-        <Select
+        <SearchSelect
           id="occupation"
-          onChange={(event) => set("occupation", event.target.value)}
+          onChange={(occupation) => set("occupation", occupation)}
+          options={OCCUPATIONS}
+          placeholder="เลือกอาชีพ"
+          searchPlaceholder="ค้นหาอาชีพ"
           value={value.occupation}
-        >
-          <option value="">เลือกอาชีพ</option>
-          {OCCUPATIONS.map((occupation) => (
-            <option key={occupation} value={occupation}>
-              {occupation}
-            </option>
-          ))}
-        </Select>
+        />
       </FormField>
 
       {value.occupation === "อื่นๆ" ? (
