@@ -34,7 +34,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     href: "/documents",
-    title: "เอกสาร",
+    title: "ยอมรับเอกสาร",
     subtitle: "เอกสารเพื่อการพิจารณาและยืนยัน",
     icon: FileCheck2,
   },

@@ -15,7 +15,7 @@ export default function DocumentsPage() {
 
   return (
     <HomeLayout>
-      <Header backHref="/" showProfileCard={false} title="เอกสาร" />
+      <Header backHref="/" showProfileCard={false} title="ยอมรับเอกสาร" />
       <section className="px-4 pt-5">
         <div className="mb-4">
           <AnnouncementCard
