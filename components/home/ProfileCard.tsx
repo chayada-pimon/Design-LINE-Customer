@@ -116,7 +116,7 @@ export function ProfileCard() {
           role="img"
         >
           <span className="grid size-full place-items-center overflow-hidden rounded-full bg-white text-[var(--color-brand-header)] opacity-30">
-            <SharkIcon aria-hidden="true" className="size-full" preserveAspectRatio="xMidYMid meet" />
+            <SharkIcon aria-hidden="true" className="size-full scale-110" preserveAspectRatio="xMidYMid meet" />
           </span>
         </span>
         <div className="min-w-0 space-y-1.5 text-left">

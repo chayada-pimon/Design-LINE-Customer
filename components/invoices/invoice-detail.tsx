@@ -211,7 +211,7 @@ export function InvoiceDetail({ invoice }: { invoice: Invoice }) {
         </SectionCard>
       ) : null}
 
-      <div className="space-y-2.5">
+      <div className="sticky bottom-0 -mx-4 space-y-2.5 border-t border-[var(--color-border)] bg-[var(--color-bg)]/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur">
         <a
           className="primary-action flex min-h-[var(--spacing-tap)] w-full items-center justify-center gap-2 rounded-[var(--radius-btn)] border border-[var(--color-action)] bg-[var(--color-action)] text-[length:var(--text-label)] font-bold text-[var(--color-surface)] shadow-[var(--shadow-card)] outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
           href={invoice.pdfUrl}
